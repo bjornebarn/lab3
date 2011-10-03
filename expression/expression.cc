@@ -247,7 +247,7 @@ namespace
 	       operator_stack.pop();
 	    }
 
-	    if (operator_stack.top() != ")")
+	    if (operator_stack.empty())
 	    {
 	       std::cerr << "högerparentes saknar matchande vänsterparentes\n";
 	       exit(EXIT_FAILURE);
