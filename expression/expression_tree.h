@@ -33,13 +33,16 @@ public:
  * Skelett för de direkta subklasserna. Inför datamedlemmar, om 
  * det är lämpligt (dvs de ska finnas i alla subklasser), och även
  * funktionalitet för sådana datamedlemmar, om det är möjligt och
- * funktionerna kan ärvas av subkasserna. Välj lämplig åtkomst-
+ * funktionerna kan ärvas av subklasserna. Välj lämplig åtkomst-
  * specifikation (public, protected, private) för de medlemmar
  * du inför.
  */
 
 class Binary_Operator : public Expression_Tree
 {
+    protected: //Kanske?
+        Expression_Tree lhs;
+        Expression_Tree rhs;
 };
 
 class Operand : public Expression_Tree
@@ -55,39 +58,112 @@ class Operand : public Expression_Tree
  */
 
 class Assign : public Binary_Operator
-{ 
+{
+    public:
+       Assign(Variable& left, Expression_Tree& right);  
+       double           evaluate();          
+       std::string      get_postfix();       
+       std::string      str();               
+       void             print(std::ostream&);
+       Expression_Tree* clone();             
+
 };
 
 class Plus : public Binary_Operator
-{ 
+{
+    public:
+        Plus(Expression_Tree& left, Expression_Tree& right);
+        double           evaluate();          
+        std::string      get_postfix();       
+        std::string      str();               
+        void             print(std::ostream&);
+        Expression_Tree* clone();             
 };
 
 class Minus : public Binary_Operator 
 {
+    public:
+        Minus(Expression_Tree& left, Expression_Tree& right);
+        double           evaluate();          
+        std::string      get_postfix();       
+        std::string      str();               
+        void             print(std::ostream&);
+        Expression_Tree* clone();             
 };
 
 class Times : public Binary_Operator
 {
+    public:
+        Times(Expression_Tree& left, Expression_Tree& right);
+        double           evaluate();          
+        std::string      get_postfix();       
+        std::string      str();               
+        void             print(std::ostream&);
+        Expression_Tree* clone();             
 };
 
 class Divide : public Binary_Operator
 {
+    public:
+        Divide(Expression_Tree& left, Expression_Tree& right);
+        double           evaluate();          
+        std::string      get_postfix();       
+        std::string      str();               
+        void             print(std::ostream&);
+        Expression_Tree* clone();             
 };
 
 class Power: public Binary_Operator
 {
+    public:
+        Power(Expression_Tree& left, Expression_Tree& right);
+        double           evaluate();          
+        std::string      get_postfix();       
+        std::string      str();               
+        void             print(std::ostream&);
+        Expression_Tree* clone();             
 };
 
 class Integer : public Operand
 {
+    private:
+        int i;
+
+    public:
+        Integer(int);
+        double           evaluate();          
+        std::string      get_postfix();       
+        std::string      str();               
+        void             print(std::ostream&);
+        Expression_Tree* clone();             
 };
 
 class Real : public Operand
 {
+    private:
+        double d;
+
+    public:
+        Real(double);
+        double           evaluate();          
+        std::string      get_postfix();       
+        std::string      str();               
+        void             print(std::ostream&);
+        Expression_Tree* clone();             
 };
 
 class Variable : public Operand
 {
+    private:
+        string var;
+
+    public:
+        Variable(std:string);
+        double           evaluate();          
+        std::string      get_postfix();       
+        std::string      str();               
+        void             print(std::ostream&);
+        Expression_Tree* clone();             
 };
 
 #endif
