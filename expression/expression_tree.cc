@@ -1,135 +1,96 @@
 /*
- * Expression_Tree.cc    2011-06-28
+ * expression_tree.cc    2011-06-28
  */
-#include "Expression_Tree.h"
+#ifndef EXPRESSION_TREE
+#define EXPRESSION_TREE
+#include "expression_tree.h"
+#include <iostream>
+#include <sstream>
+#include <math.h>
 // Inkludera för allt som kommer att användas i denna fil!
 using namespace std;
 
 // Separata definitioner för för Expression_Tree-klasserna definieras här.
 
 
-Assign::Assign(Variable& var, Expression_Tree& right)
+Assign::Assign(Expression_Tree* var, Expression_Tree* right)
+{
+    lhs = var;
+    rhs = right;
+}
+
+Plus::Plus(Expression_Tree* left, Expression_Tree* right)
 {
     lhs = left;
     rhs = right;
 }
 
-Plus::Plus(Variable& var, Expression_Tree& right)
+Minus::Minus(Expression_Tree* left, Expression_Tree* right)
 {
     lhs = left;
     rhs = right;
 }
 
-Minus::Minus(Variable& var, Expression_Tree& right)
+Times::Times(Expression_Tree* left, Expression_Tree* right)
 {
     lhs = left;
     rhs = right;
 }
 
-Times::Times(Variable& var, Expression_Tree& right)
+Divide::Divide(Expression_Tree* left, Expression_Tree* right)
 {
     lhs = left;
     rhs = right;
 }
 
-Divide::Divide(Variable& var, Expression_Tree& right)
+Power::Power(Expression_Tree* left, Expression_Tree* right)
 {
     lhs = left;
     rhs = right;
 }
 
-Power::Power(Variable& var, Expression_Tree& right)
-{
-    lhs = left;
-    rhs = right;
-}
+Integer::Integer(int x) { num_var = x; }
 
-Integer::Integer(int x) { i = x; }
+Real::Real(double y) { num_var = y; }
 
-Real::Real(double y) { d = y; }
-
-Variable::Variable(string str) { var = str; }
+Variable::Variable(string str) { num_var = str; }
 
 double Assign::evaluate()
 {
-    double temp = lhs.evaluate(); //Måste sätta temp till en variabel!!!
+    double temp = lhs->evaluate(); //Måste sätta temp till en variabel!!!
 }
 
 double Plus::evaluate()
 {
-    return lhs.evaluate() + rhs.evaluate();
+    return lhs->evaluate() + rhs->evaluate();
 }
 
 double Minus::evaluate()
 {
-    return lhs.evaluate() - rhs.evaluate();
+    return lhs->evaluate() - rhs->evaluate();
 }
 
 double Times::evaluate()
 {
-    return lhs.evaluate() * rhs.evaluate();
+    return lhs->evaluate() * rhs->evaluate();
 }
 
 double Divide::evaluate()
 {
-    return lhs.evaluate() / rhs.evaluate();
+    return lhs->evaluate() / rhs->evaluate();
 }
 
 double Power::evaluate()
 {
-    return pow(lhs.evaluate(), rhs.evaluate());
+    return pow(lhs->evaluate(), rhs->evaluate());
 }
 
-double Integer::evaluate() { return (double) i; }
+double Integer::evaluate() { return (double) num_var; }
 
-double Real::evaluate() { return d; }
+double Real::evaluate() { return num_var; }
 
 //double Variable::evaluate() { return var_list(var); }
-
-string Assign::get_postfix()
-{
-    return ((rhs.get_postfix()).push_back("=")).push_front(lhs);
-}
-
-string Plus::get_postfix()
-{
-    return ((rhs.get_postfix()).push_back("+")).push_front(lhs);
-}
-
-string Minus::get_postfix()
-{
-    return ((rhs.get_postfix()).push_back("-")).push_front(lhs);
-}    
-
-string Times::get_postfix()
-{
-    return ((rhs.get_postfix()).push_back("*")).push_front(lhs);
-}
-
-string Divide::get_postfix()
-{
-    return ((rhs.get_postfix()).push_back("/")).push_front(lhs);
-}
-
-string Power::get_postfix()
-{
-    return ((rhs.get_postfix()).push_back("^")).push_front(lhs);
-}    
-
-string Integer::get_postfix()
-{
-    stringstream out;
-    return out << i;
-}
-
-string Real::get_postfix()
-{
-    stringstream out;
-    return out << d;
-} 
-
-string Variable::get_postfix() { return var; }
-
+ 
 string Assign::str() { return "="; }
 string Plus::str() { return "+"; }
 string Minus::str() { return "-"; }
@@ -139,82 +100,55 @@ string Power::str() { return "^"; }
 string Integer::str() 
 { 
     stringstream out;
-    return out << i; 
-}
-string Real::str() 
-{ 
+    out << num_var;
+    return out.str(); 
+}       
+string Real::str()
+{
     stringstream out;
-    return out << d;
+    out << num_var;
+    return out.str();
 }
-string Variable::str() { return var; }
-
-void Assign::print(ostream& os)
+string Variable::str()
 {
-    rhs.print("  " << os);
-    cout << " /\n=\n \\\n";
-    lhs.print("  " << os);
+    return num_var;
 }
 
-void Plus::print(ostream&)
+
+string Binary_Operator::get_postfix()
 {
-    rhs.print("  " << os);
-    cout << " /\n+\n \\\n";
-    lhs.print("  " << os);
+    return lhs->get_postfix().append(rhs->get_postfix().append(str()));
+}
+
+string Operand::get_postfix() { return str(); }
+
+
+void Binary_Operator::print(ostream& os)
+{
+    rhs->print(os << "  ");
+    cout << " /\n" << str() << "\n \\\n";
+    lhs->print(os << "  ");
+}
+
+void Operand::print(ostream& os)
+{
+    cout << " /\n" << num_var << "\n \\\n";
 }    
 
-
-void Minus::print(ostream&)
+Expression_Tree* Binary_Operator::clone()
 {
-    rhs.print("  " << os);
-    cout << " /\n-\n \\\n";
-    lhs.print("  " << os);
-}    
+    Expression_Tree* clone = new this(lhs->clone(), rhs->clone());
+    return clone;
+}
 
-
-void Times::print(ostream&)
+Expression_Tree* Operand::clone()
 {
-    rhs.print("  " << os);
-    cout << " /\n*\n \\\n";
-    lhs.print("  " << os);
-}    
+    Expression_Tree* clone = new this(num_var);
+    return clone;
+}
 
+//void Variable::set_value(double value) { set_list(num_var, value); }
 
-void Divide::print(ostream&)
-{
-    rhs.print("  " << os);
-    cout << " /\n/\n \\\n";
-    lhs.print("  " << os);
-}    
-
-
-void Power::print(ostream&)
-{
-    rhs.print("  " << os);
-    cout << " /\n^\n \\\n";
-    lhs.print("  " << os);
-}    
-
-
-void Integer::print(ostream&)
-{
-    rhs.print("  " << os);
-    cout << " /\n" << i << "\n \\\n";
-    lhs.print("  " << os);
-}    
-
-
-void Real::print(ostream&)
-{
-    rhs.print("  " << os);
-    cout << " /\n" << d << "\n \\\n";
-    lhs.print("  " << os);
-}    
-
-
-void Variable::print(ostream&)
-{
-    rhs.print("  " << os);
-    cout << " /\n" << var << "\n \\\n";
-    lhs.print("  " << os);
-}    
-
+//double Variable::get_value() { blalbalba ; }
+//
+#endif

@@ -1,9 +1,9 @@
 /*
  * expression_tree-test.cc
  *
- * Program för att testa Expression_Tree-klasserna.
+ * Program för att testa expression_tree-klasserna.
  */
-#include "Expression_Tree.h"
+#include "expression_tree.h"
 #include <iostream>
 #include <stdexcept>
 using namespace std;
