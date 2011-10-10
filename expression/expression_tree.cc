@@ -49,11 +49,11 @@ Power::Power(Expression_Tree* left, Expression_Tree* right)
     rhs = right;
 }
 
-Integer::Integer(int x) { num_var = x; }
+Integer::Integer(int x) { i = x; }
 
-Real::Real(double y) { num_var = y; }
+Real::Real(double y) { d = y; }
 
-Variable::Variable(string str) { num_var = str; }
+Variable::Variable(string str) { var = str; }
 
 double Assign::evaluate()
 {
@@ -85,11 +85,11 @@ double Power::evaluate()
     return pow(lhs->evaluate(), rhs->evaluate());
 }
 
-double Integer::evaluate() { return (double) num_var; }
+double Integer::evaluate() { return (double) i; }
 
-double Real::evaluate() { return num_var; }
+double Real::evaluate() { return d; }
 
-//double Variable::evaluate() { return var_list(var); }
+double Variable::evaluate() { return 13.5; }
  
 string Assign::str() { return "="; }
 string Plus::str() { return "+"; }
@@ -100,24 +100,24 @@ string Power::str() { return "^"; }
 string Integer::str() 
 { 
     stringstream out;
-    out << num_var;
+    out << i;
     return out.str(); 
 }       
 string Real::str()
 {
     stringstream out;
-    out << num_var;
+    out << d;
     return out.str();
 }
 string Variable::str()
 {
-    return num_var;
+    return var;
 }
 
 
 string Binary_Operator::get_postfix()
 {
-    return lhs->get_postfix().append(rhs->get_postfix().append(str()));
+    return lhs->get_postfix().append(" "+rhs->get_postfix().append(" "+str()));
 }
 
 string Operand::get_postfix() { return str(); }
@@ -126,27 +126,79 @@ string Operand::get_postfix() { return str(); }
 void Binary_Operator::print(ostream& os)
 {
     rhs->print(os << "  ");
-    cout << " /\n" << str() << "\n \\\n";
+    cout << os << " /\n" << os << str() << "\n" << os << " \\\n";
     lhs->print(os << "  ");
 }
 
-void Operand::print(ostream& os)
+void Integer::print(ostream& os)
 {
-    cout << " /\n" << num_var << "\n \\\n";
+    cout << os << i << "\n";
 }    
 
-Expression_Tree* Binary_Operator::clone()
+void Real::print(ostream& os)
 {
-    Expression_Tree* clone = new this(lhs->clone(), rhs->clone());
+    cout << os << d << "\n";
+} 
+
+void Variable::print(ostream& os)
+{
+    cout << os << var << "\n";
+} 
+Expression_Tree* Assign::clone()
+{
+    Expression_Tree* clone = new Assign(lhs->clone(), rhs->clone());
     return clone;
 }
 
-Expression_Tree* Operand::clone()
+Expression_Tree* Plus::clone()
 {
-    Expression_Tree* clone = new this(num_var);
+    Expression_Tree* clone = new Plus(lhs->clone(), rhs->clone());
+    return clone;
+}
+  
+Expression_Tree* Minus::clone()
+{
+    Expression_Tree* clone = new Minus(lhs->clone(), rhs->clone());
     return clone;
 }
 
+Expression_Tree* Times::clone()
+{
+    Expression_Tree* clone = new Times(lhs->clone(), rhs->clone());
+    return clone;
+}
+
+Expression_Tree* Divide::clone()
+{
+    Expression_Tree* clone = new Divide(lhs->clone(), rhs->clone());
+    return clone;
+}
+
+Expression_Tree* Power::clone()
+{
+    Expression_Tree* clone = new Power(lhs->clone(), rhs->clone());
+    return clone;
+}
+     
+Expression_Tree* Integer::clone()
+{
+    Expression_Tree* clone = new Integer(i);
+    return clone;
+}
+
+Expression_Tree* Real::clone()
+{
+    Expression_Tree* clone = new Real(d);
+    return clone;
+}
+
+Expression_Tree* Variable::clone()
+{
+    Expression_Tree* clone = new Variable(var);
+    return clone;
+}
+
+ 
 //void Variable::set_value(double value) { set_list(num_var, value); }
 
 //double Variable::get_value() { blalbalba ; }

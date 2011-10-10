@@ -47,15 +47,12 @@ class Binary_Operator : public Expression_Tree
     public:
         std::string      get_postfix();
         void             print(std::ostream&);
-        Expression_Tree* clone();
 };
 
 class Operand : public Expression_Tree
 {
     public:
         std::string      get_postfix();
-        void             print(std::ostream&);
-        Expression_Tree* clone();
 };
 
 /*
@@ -72,7 +69,7 @@ class Assign : public Binary_Operator
        Assign(Expression_Tree* left, Expression_Tree* right);  
        double           evaluate();          
        std::string      str();               
-
+       Expression_Tree* clone();
 };
 
 class Plus : public Binary_Operator
@@ -81,6 +78,7 @@ class Plus : public Binary_Operator
         Plus(Expression_Tree* left, Expression_Tree* right);
         double           evaluate();          
         std::string      str();               
+        Expression_Tree* clone();
 };
 
 class Minus : public Binary_Operator 
@@ -89,6 +87,7 @@ class Minus : public Binary_Operator
         Minus(Expression_Tree* left, Expression_Tree* right);
         double           evaluate();          
         std::string      str();               
+        Expression_Tree* clone();
 };
 
 class Times : public Binary_Operator
@@ -97,6 +96,7 @@ class Times : public Binary_Operator
         Times(Expression_Tree* left, Expression_Tree* right);
         double           evaluate();          
         std::string      str();               
+        Expression_Tree* clone();
 };
 
 class Divide : public Binary_Operator
@@ -105,6 +105,7 @@ class Divide : public Binary_Operator
         Divide(Expression_Tree* left, Expression_Tree* right);
         double           evaluate();          
         std::string      str();               
+        Expression_Tree* clone();
 };
 
 class Power: public Binary_Operator
@@ -113,34 +114,39 @@ class Power: public Binary_Operator
         Power(Expression_Tree* left, Expression_Tree* right);
         double           evaluate();          
         std::string      str();               
+        Expression_Tree* clone();
 };
 
 class Integer : public Operand
 {
     private:
-        int num_var;
+        int i;
 
     public:
         std::string      str();               
         Integer(int);
         double           evaluate();          
+        void             print(std::ostream&);
+        Expression_Tree* clone();
 };
 
 class Real : public Operand
 {
     private:
-        double num_var;
+        double d;
 
     public:
         std::string      str();               
         Real(double);
         double           evaluate();          
+        void             print(std::ostream&);
+        Expression_Tree* clone();
 };
 
 class Variable : public Operand
 {
     private:
-        std::string num_var;
+        std::string var;
 
     public:
         std::string      str();               
@@ -148,6 +154,8 @@ class Variable : public Operand
         double  evaluate();        
         void    set_value(double value);
         double  get_value();
+        void             print(std::ostream&);
+        Expression_Tree* clone();
 };
 
 #endif

@@ -1,8 +1,8 @@
 /*
  * Expression.cc    2011-06-28
  */
-#include "Expression.h"
-#include "Expression_Tree.h"
+#include "expression.h"
+#include "expression_tree.h"
 #include <algorithm>
 #include <cstdlib>
 #include <iostream>
@@ -22,17 +22,22 @@ using namespace std;
 /*
  * evaluate()
  */
+Expression::Expression(class Expression_Tree* Temp_Tree)
+{
+    Exp_Tree = Temp_Tree;
+}
+
 double Expression::evaluate() const
 {
-   return numeric_limits<double>::infinity();
+   return Exp_Tree->evaluate();
 }
 
 /*
  * get_postfix()
  */
 std::string Expression::get_postfix() const
-{
-   return string();
+{                 
+   return Exp_Tree->get_postfix();
 }
 
 /*
@@ -40,29 +45,40 @@ std::string Expression::get_postfix() const
  */
 bool Expression::empty() const
 {
-   return false;
+    if (Exp_Tree == 0)
+        return true;
+    else
+        return false;
 }
 
 /*
  * print_tree()
  */
-void Expression::print_tree(std::ostream&) const
+void Expression::print_tree(std::ostream& os) const
 {
+    Exp_Tree->print(os);
 }
 
 /*
  * swap(other)
  */
-void Expression::swap(Expression&)
+void Expression::swap(Expression& exp)
 {
+    Expression_Tree* temp_ptr = Exp_Tree;
+    Exp_Tree = exp.Exp_Tree;
+    exp.Exp_Tree = temp_ptr;  // <F6><F9><F3><F11>
 }
 
 /*
  * swap(x, y)
  */
-void swap(Expression&, Expression&)
+void swap(Expression& exp1, Expression& exp2)
 {
-}
+    Expression_Tree* temp_ptr = exp1.Exp_Tree;
+    exp1.Exp_Tree = exp2.Exp_Tree;
+    exp2.Exp_Tree = temp_ptr;
+}  
+
 
 // make_expression() definieras efter namnrymden nedan.
 

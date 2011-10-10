@@ -3,8 +3,8 @@
  *
  * Program för att testa klassen Expression.
  */
-#include "Expression.h"
-#include "Expression_Tree.h"
+#include "expression.h"
+#include "expression_tree.h"
 #include <iostream>
 #include <stdexcept>
 using namespace std;

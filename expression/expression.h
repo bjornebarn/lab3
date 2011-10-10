@@ -6,7 +6,7 @@
 #include <iosfwd>
 #include <stdexcept>
 #include <string>
-
+#include "expression_tree.h"
 /**
  * expression_error kastas om fel inträffar i en Expression-operation.
  * Ett diagnostiskt meddelande kan skickas med.
@@ -18,16 +18,19 @@
  */
 class Expression
 {
-public:
-   // VIKTIGA SAKER ÅTERSTÅR ATT FIXA OCH KANSKE MODIFIERA
+    private:
+        Expression_Tree* Exp_Tree;
 
-   Expression(class Expression_Tree* = 0) {}
+    public:
+        // VIKTIGA SAKER ÅTERSTÅR ATT FIXA OCH KANSKE MODIFIERA
 
-   double      evaluate() const;
-   std::string get_postfix() const;
-   bool        empty() const;
-   void        print_tree(std::ostream&) const;
-   void        swap(Expression&);
+        Expression(class Expression_Tree* = 0); 
+
+        double      evaluate() const;
+        std::string get_postfix() const;
+        bool        empty() const;
+        void        print_tree(std::ostream&) const;
+        void        swap(Expression&);
 };
 
 void swap(Expression&, Expression&);
