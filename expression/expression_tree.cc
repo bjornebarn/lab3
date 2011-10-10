@@ -126,23 +126,25 @@ string Operand::get_postfix() { return str(); }
 void Binary_Operator::print(ostream& os)
 {
     rhs->print(os << "  ");
-    cout << os << " /\n" << os << str() << "\n" << os << " \\\n";
+    os << " /\n";
+    os << str() << "\n";
+    os << " \\\n";
     lhs->print(os << "  ");
 }
 
 void Integer::print(ostream& os)
 {
-    cout << os << i << "\n";
+    os << i << "\n";
 }    
 
 void Real::print(ostream& os)
 {
-    cout << os << d << "\n";
+    os << d << "\n";
 } 
 
 void Variable::print(ostream& os)
 {
-    cout << os << var << "\n";
+    os << var << "\n";
 } 
 Expression_Tree* Assign::clone()
 {
