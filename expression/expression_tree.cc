@@ -1,6 +1,7 @@
 /*
  * expression_tree.cc    2011-06-28
  */
+#include "variable_table.h"
 #include "expression_tree.h"
 #include <iostream>
 #include <sstream>
@@ -55,7 +56,9 @@ Variable::Variable(string str) { var = str; }
 
 double Assign::evaluate()
 {
-    double temp = lhs->evaluate(); //Måste sätta temp till en variabel!!!
+    double temp = lhs->evaluate;
+    var_table.insert(rhs, temp);
+    return temp; 
 }
 
 double Plus::evaluate()
@@ -167,7 +170,7 @@ Expression_Tree* Times::clone()
     Expression_Tree* clone = new Times(lhs->clone(), rhs->clone());
     return clone;
 }
-
+                                         
 Expression_Tree* Divide::clone()
 {
     Expression_Tree* clone = new Divide(lhs->clone(), rhs->clone());
@@ -199,7 +202,6 @@ Expression_Tree* Variable::clone()
 }
 
  
-//void Variable::set_value(double value) { set_list(num_var, value); }
+void Variable::set_value(double value) {  }
 
-//double Variable::get_value() { blalbalba ; }
-//
+double Variable::get_value() { blalbalba ; }
