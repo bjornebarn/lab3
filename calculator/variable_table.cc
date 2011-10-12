@@ -35,9 +35,10 @@ void Variable_Table::set_value(string var, double value)
 double Variable_Table::get_value(string var)
 {    
     if (not find(var))
-       cout << "existerar ej\n";
-   else
-       var_table[var];
+        cout << "existerar ej\n";
+    else
+        return var_table[var];
+    return 0;
 }
 
 void Variable_Table::list(ostream& os)

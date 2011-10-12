@@ -42,6 +42,7 @@ int main()
    //t2->print(cout);
 
    Expression_Tree* t3 = new Times(t1, t2);
+   cout << t3->get_postfix() << endl;
    t3->print(cout);
 
    return 0;

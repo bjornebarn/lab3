@@ -58,8 +58,8 @@ Variable::Variable(string str, Variable_Table* temp_table) { var = str; var_tabl
 
 double Assign::evaluate()
 {
-    double temp = lhs->evaluate();
-    var_table->insert(rhs->str(), temp);
+    double temp = rhs->evaluate();
+    var_table->insert(lhs->str(), temp);
     return temp; 
 }
 
