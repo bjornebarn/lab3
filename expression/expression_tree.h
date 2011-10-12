@@ -47,6 +47,7 @@ class Binary_Operator : public Expression_Tree
 
     public:
         Binary_Operator(Expression_Tree*,Expression_Tree*);
+        ~Binary_Operator();
         std::string      get_postfix();
         void             print(std::ostream&, std::string = "");
 };
@@ -71,6 +72,7 @@ class Assign : public Binary_Operator
         Variable_Table* var_table;
     public:
        Assign(Expression_Tree*, Expression_Tree*, Variable_Table*);
+       ~Assign();
        double           evaluate();
        std::string      str();
        Expression_Tree* clone();
@@ -127,9 +129,10 @@ class Integer : public Operand
         int i;
 
     public:
-        std::string      str();
         Integer(int);
+        ~Integer();
         double           evaluate();
+        std::string      str();
         void             print(std::ostream&, std::string = "");
         Expression_Tree* clone();
 };
@@ -140,9 +143,10 @@ class Real : public Operand
         double d;
 
     public:
-        std::string      str();
         Real(double);
+        ~Real();
         double           evaluate();
+        std::string      str();
         void             print(std::ostream&, std::string = "");
         Expression_Tree* clone();
 };
@@ -154,9 +158,10 @@ class Variable : public Operand
         Variable_Table* var_table;
 
     public:
-        std::string      str();
         Variable(std::string, Variable_Table*);
+        ~Variable();
         double  evaluate();
+        std::string      str();
         void    set_value(double);
         double  get_value();
         void             print(std::ostream&, std::string = "");

@@ -4,15 +4,12 @@
 #include <map>
 #include <iostream>
 
-
 using namespace std;
-
-
 
 class Variable_Table
 {
     private:
-        map<string, double> var_table; 
+        map<string, double> var_table;
     public:
         bool find(string);
         void insert(string, double);

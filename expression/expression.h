@@ -28,6 +28,7 @@ class Expression
 
         Expression(Expression_Tree* = 0);
         Expression(const Expression&);
+        ~Expression();
 
         double      evaluate() const;
         std::string get_postfix() const;

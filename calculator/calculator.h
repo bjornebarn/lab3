@@ -37,6 +37,7 @@ class Calculator
         // Defaultkonstruktorn måste deklareras, även om den "inget" gör, eftersom
         // den inte genereras då någon annan konstruktor deklareras.
         Calculator();
+        ~Calculator();
 
         void run();
 };

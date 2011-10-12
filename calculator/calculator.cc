@@ -17,6 +17,7 @@ Calculator::Calculator()
     var_table = new Variable_Table;
 }
 
+Calculator::~Calculator() { delete var_table; }
 
 /**
  * run() är huvudfunktionen för kalkylatorn. Skriver först ut hur man använder

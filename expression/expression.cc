@@ -33,6 +33,8 @@ Expression::Expression(const Expression& Temp_Tree)
         Exp_Tree = Temp_Tree.Exp_Tree->clone();
 }
 
+Expression::~Expression() { delete Exp_Tree; }
+
 /*
  * evaluate()
  */
@@ -45,7 +47,7 @@ double Expression::evaluate() const
  * get_postfix()
  */
 std::string Expression::get_postfix() const
-{                 
+{
    return Exp_Tree->get_postfix();
 }
 
@@ -78,7 +80,7 @@ void Expression::swap(Expression& exp)
         Exp_Tree = 0;
     else
         Exp_Tree = exp.Exp_Tree;
-    exp.Exp_Tree = temp_ptr;  
+    exp.Exp_Tree = temp_ptr;
 }
 
 /*
@@ -87,7 +89,7 @@ void Expression::swap(Expression& exp)
 void swap(Expression& exp1, Expression& exp2)
 {
     exp1.swap(exp2);
-}  
+}
 
 
 // make_expression() definieras efter namnrymden nedan.

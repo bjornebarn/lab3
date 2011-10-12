@@ -44,7 +44,10 @@ Real::Real(double y) { d = y; }
 
 Variable::Variable(string str, Variable_Table* temp_table) { var = str; var_table = temp_table; }
 
-
+Binary_Operator::~Binary_Operator()
+{
+    delete lhs; delete rhs;
+}
 
 double Assign::evaluate()
 {
