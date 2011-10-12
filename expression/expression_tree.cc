@@ -45,11 +45,12 @@ Real::Real(double y) { d = y; }
 Variable::Variable(string str, Variable_Table* temp_table) { var = str; var_table = temp_table; }
 
 
+
 double Assign::evaluate()
 {
     double temp = rhs->evaluate();
     var_table->insert(lhs->str(), temp);
-    return temp; 
+    return temp;
 }
 
 double Plus::evaluate()
@@ -82,19 +83,19 @@ double Integer::evaluate() { return (double) i; }
 double Real::evaluate() { return d; }
 
 double Variable::evaluate() { return var_table->get_value(var); }
- 
+
 string Assign::str() { return "="; }
 string Plus::str() { return "+"; }
 string Minus::str() { return "-"; }
 string Times::str() { return "*"; }
 string Divide::str() { return "/"; }
 string Power::str() { return "^"; }
-string Integer::str() 
-{ 
+string Integer::str()
+{
     stringstream out;
     out << i;
-    return out.str(); 
-}       
+    return out.str();
+}
 string Real::str()
 {
     stringstream out;
@@ -127,17 +128,17 @@ void Binary_Operator::print(ostream& os, string indent)
 void Integer::print(ostream& os, string indent)
 {
     os << indent << i << "\n";
-}    
+}
 
 void Real::print(ostream& os, string indent)
 {
     os << indent << d << "\n";
-} 
+}
 
 void Variable::print(ostream& os, string indent)
 {
     os << indent << var << "\n";
-} 
+}
 Expression_Tree* Assign::clone()
 {
     Expression_Tree* clone = new Assign(lhs->clone(), rhs->clone(), var_table);
@@ -149,7 +150,7 @@ Expression_Tree* Plus::clone()
     Expression_Tree* clone = new Plus(lhs->clone(), rhs->clone());
     return clone;
 }
-  
+
 Expression_Tree* Minus::clone()
 {
     Expression_Tree* clone = new Minus(lhs->clone(), rhs->clone());
@@ -161,7 +162,7 @@ Expression_Tree* Times::clone()
     Expression_Tree* clone = new Times(lhs->clone(), rhs->clone());
     return clone;
 }
-                                         
+
 Expression_Tree* Divide::clone()
 {
     Expression_Tree* clone = new Divide(lhs->clone(), rhs->clone());
@@ -173,7 +174,7 @@ Expression_Tree* Power::clone()
     Expression_Tree* clone = new Power(lhs->clone(), rhs->clone());
     return clone;
 }
-     
+
 Expression_Tree* Integer::clone()
 {
     Expression_Tree* clone = new Integer(i);
@@ -192,7 +193,7 @@ Expression_Tree* Variable::clone()
     return clone;
 }
 
- 
+
 void Variable::set_value(double value) { var_table->set_value(var, value); }
 
 double Variable::get_value() { return var_table->get_value(var); }
