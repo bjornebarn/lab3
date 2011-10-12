@@ -11,43 +11,32 @@ using namespace std;
 
 // Separata definitioner för för Expression_Tree-klasserna definieras här.
 
+Binary_Operator::Binary_Operator(Expression_Tree* left, Expression_Tree* right)
+{
+    lhs = left;
+    rhs = right;
+}
 
-Assign::Assign(Expression_Tree* var, Expression_Tree* right, Variable_Table* temp_table)
+Assign::Assign(Expression_Tree* left, Expression_Tree* right, Variable_Table* temp_table)
+    : Binary_Operator(left,right)
 {
     var_table = temp_table;
-    lhs = var;
-    rhs = right;
 }
 
 Plus::Plus(Expression_Tree* left, Expression_Tree* right)
-{
-    lhs = left;
-    rhs = right;
-}
+    : Binary_Operator(left,right) {}
 
 Minus::Minus(Expression_Tree* left, Expression_Tree* right)
-{
-    lhs = left;
-    rhs = right;
-}
+    : Binary_Operator(left,right) {}
 
 Times::Times(Expression_Tree* left, Expression_Tree* right)
-{
-    lhs = left;
-    rhs = right;
-}
+    : Binary_Operator(left,right) {}
 
 Divide::Divide(Expression_Tree* left, Expression_Tree* right)
-{
-    lhs = left;
-    rhs = right;
-}
+    : Binary_Operator(left,right) {}
 
 Power::Power(Expression_Tree* left, Expression_Tree* right)
-{
-    lhs = left;
-    rhs = right;
-}
+    : Binary_Operator(left,right) {}
 
 Integer::Integer(int x) { i = x; }
 

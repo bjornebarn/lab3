@@ -46,8 +46,9 @@ class Binary_Operator : public Expression_Tree
         Expression_Tree* rhs;
 
     public:
+        Binary_Operator(Expression_Tree*,Expression_Tree*);
         std::string      get_postfix();
-        void             print(std::ostream&, std::string indent = "");
+        void             print(std::ostream&, std::string = "");
 };
 
 class Operand : public Expression_Tree
@@ -69,7 +70,7 @@ class Assign : public Binary_Operator
     private:
         Variable_Table* var_table;
     public:
-       Assign(Expression_Tree* left, Expression_Tree* right, Variable_Table*);  
+       Assign(Expression_Tree*, Expression_Tree*, Variable_Table*);  
        double           evaluate();          
        std::string      str();               
        Expression_Tree* clone();
@@ -78,7 +79,7 @@ class Assign : public Binary_Operator
 class Plus : public Binary_Operator
 {
     public:
-        Plus(Expression_Tree* left, Expression_Tree* right);
+        Plus(Expression_Tree*, Expression_Tree*);
         double           evaluate();          
         std::string      str();               
         Expression_Tree* clone();
@@ -87,7 +88,7 @@ class Plus : public Binary_Operator
 class Minus : public Binary_Operator 
 {
     public:
-        Minus(Expression_Tree* left, Expression_Tree* right);
+        Minus(Expression_Tree*, Expression_Tree*);
         double           evaluate();          
         std::string      str();               
         Expression_Tree* clone();
@@ -96,7 +97,7 @@ class Minus : public Binary_Operator
 class Times : public Binary_Operator
 {
     public:
-        Times(Expression_Tree* left, Expression_Tree* right);
+        Times(Expression_Tree*, Expression_Tree*);
         double           evaluate();          
         std::string      str();               
         Expression_Tree* clone();
@@ -105,7 +106,7 @@ class Times : public Binary_Operator
 class Divide : public Binary_Operator
 {
     public:
-        Divide(Expression_Tree* left, Expression_Tree* right);
+        Divide(Expression_Tree*, Expression_Tree*);
         double           evaluate();          
         std::string      str();               
         Expression_Tree* clone();
@@ -114,7 +115,7 @@ class Divide : public Binary_Operator
 class Power: public Binary_Operator
 {
     public:
-        Power(Expression_Tree* left, Expression_Tree* right);
+        Power(Expression_Tree*, Expression_Tree*);
         double           evaluate();          
         std::string      str();               
         Expression_Tree* clone();
@@ -129,7 +130,7 @@ class Integer : public Operand
         std::string      str();               
         Integer(int);
         double           evaluate();          
-        void             print(std::ostream&, std::string indent = "");
+        void             print(std::ostream&, std::string = "");
         Expression_Tree* clone();
 };
 
@@ -142,7 +143,7 @@ class Real : public Operand
         std::string      str();               
         Real(double);
         double           evaluate();          
-        void             print(std::ostream&, std::string indent = "");
+        void             print(std::ostream&, std::string = "");
         Expression_Tree* clone();
 };
 
@@ -156,9 +157,9 @@ class Variable : public Operand
         std::string      str();               
         Variable(std::string, Variable_Table*);
         double  evaluate();        
-        void    set_value(double value);
+        void    set_value(double);
         double  get_value();
-        void             print(std::ostream&, std::string indent = "");
+        void             print(std::ostream&, std::string = "");
         Expression_Tree* clone();
 };
 
