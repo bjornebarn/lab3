@@ -1,6 +1,7 @@
 /*
  * Calculator.cc
  */
+#include "variable_table.h"
 #include "calculator.h"
 #include "expression.h"
 #include <cctype>
@@ -11,13 +12,17 @@ using namespace std;
 
 const string Calculator::valid_command_("?HUBPTS");
 
+Calculator::Calculator()
+{
+    var_table = new Variable_Table;
+}
+
+
 /**
  * run() är huvudfunktionen för kalkylatorn. Skriver först ut hur man använder
  * kalkylatorn och läser sedan sedan in ett kommando i taget och utför det.
  */
-void
-Calculator::
-run()
+void Calculator::run()
 {
    cout << "Välkommen till Kalkylatorn!\n\n";
    print_help();
@@ -41,9 +46,7 @@ run()
 /**
  * print_help() skriver ut kommandorepertoaren.
  */
-void
-Calculator::
-print_help()
+void Calculator::print_help()
 {
    cout << "  H, ?  Skriv ut denna information\n";
    cout << "  U     Mata in ett nytt uttryck\n";
@@ -58,9 +61,7 @@ print_help()
  * kommandot i medlemmen command_ för vidare behandling av andra operationer. 
  * Ingen kontroll görs om det skrivits mer, i så fall skräp, på kommandoraden.
  */
-void
-Calculator::
-get_command()
+void Calculator::get_command()
 {
    cout << ">> ";
    cin >> command_;
@@ -72,9 +73,7 @@ get_command()
  * tillhör den tillåtna kommandorepertoraren och returnerar antingen true
  * (giltigt kommando) eller false (ogiltigt kommando).
  */
-bool
-Calculator::
-valid_command()
+bool Calculator::valid_command()
 {
    if (valid_command_.find(command_) == string::npos)
    {
@@ -89,16 +88,14 @@ valid_command()
  * förutsätts ha kontrollerats med valid_command() och alltså är ett giltigt 
  * kommando.
  */
-void
-Calculator::
-execute_command()
+void Calculator::execute_command()
 {
    if (command_ == 'H' || command_ == '?')
       print_help();
    else if (command_ == 'U')
       read_expression(cin);
    else if (command_ == 'B')
-      cout << current_expression_.evaluate() << "\n";
+      cout << current_expression_.evaluate(var_table) << "\n";
    else if (command_ == 'P')
       cout << current_expression_.get_postfix() << "\n";
    else if (command_ == 'T')
@@ -114,9 +111,7 @@ execute_command()
  * till funktionen make_expression() som returnerar ett objekt av typen 
  * Expression, vilket lagras som "aktuellt uttryck" i current_expression_.
  */
-void
-Calculator::
-read_expression(istream& is)
+void Calculator::read_expression(istream& is)
 {
    string infix;
 
