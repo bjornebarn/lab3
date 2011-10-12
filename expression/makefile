@@ -14,7 +14,7 @@ expression_tree-test.o: expression_tree-test.cc
 
 expression-test: expression-test.o expression.o
 	@echo Linking
-	g++ -o expression-test -Wall -Wextra -pedantic -std=c++98 expression-test.o expression.o
+	g++ -o expression-test -Wall -Wextra -pedantic -std=c++98 expression-test.o expression.o expression_tree.o
 
 expression.o: expression.cc
 	g++ -Wall -Wextra -pedantic -std=c++98 -c $<

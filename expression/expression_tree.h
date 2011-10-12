@@ -25,7 +25,7 @@ public:
    virtual double           evaluate() = 0;
    virtual std::string      get_postfix() = 0;
    virtual std::string      str() = 0;
-   virtual void             print(std::ostream&) = 0;
+   virtual void             print(std::ostream&, std::string = "") = 0;
    virtual Expression_Tree* clone() = 0;
 };
 
@@ -46,7 +46,7 @@ class Binary_Operator : public Expression_Tree
 
     public:
         std::string      get_postfix();
-        void             print(std::ostream&);
+        void             print(std::ostream&, std::string indent = "");
 };
 
 class Operand : public Expression_Tree
@@ -126,7 +126,7 @@ class Integer : public Operand
         std::string      str();               
         Integer(int);
         double           evaluate();          
-        void             print(std::ostream&);
+        void             print(std::ostream&, std::string indent = "");
         Expression_Tree* clone();
 };
 
@@ -139,7 +139,7 @@ class Real : public Operand
         std::string      str();               
         Real(double);
         double           evaluate();          
-        void             print(std::ostream&);
+        void             print(std::ostream&, std::string indent = "");
         Expression_Tree* clone();
 };
 
@@ -154,7 +154,7 @@ class Variable : public Operand
         double  evaluate();        
         void    set_value(double value);
         double  get_value();
-        void             print(std::ostream&);
+        void             print(std::ostream&, std::string indent = "");
         Expression_Tree* clone();
 };
 

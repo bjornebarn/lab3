@@ -16,13 +16,15 @@ int main()
    if (e1.empty())
       cout << "Tomt uttryck!\n";
    else
-      cout << "e1.evaluate() = " << e1.evaluate() << '\n';
+   {
+       cout << "e1.evaluate() = " << e1.evaluate() << '\n';
 
-   cout << "e1.get_postfix() = " << e1.get_postfix() << '\n';
-   cout << boolalpha << "e1.empty() = " << e1.empty() << "\n\n";
+       cout << "e1.get_postfix() = " << e1.get_postfix() << '\n';
+       cout << boolalpha << "e1.empty() = " << e1.empty() << "\n\n";
+   }
 
-   Expression e2(e1);  // Kopieringskonstruktor
-
+   Expression e2;  // Kopieringskonstruktor
+/*
    try
    {
       cout << "e2.evaluate() = " << e2.evaluate() << '\n';
@@ -35,11 +37,11 @@ int main()
    cout << "e2.get_postfix() = " << e2.get_postfix() << '\n';
    cout << "e2.empty() = " << e2.empty() << "\n\n";
    
-   e2.swap(e1);
+   e2.swap(e1); */
 
    // Nedanstående kräver implementering av Expression_Tree-klasserna.
 
-/*
+
    Expression_Tree* t = new Plus(new Integer(7), new Real(3.14));
 
    Expression e3(t);  // Konstruktor som tar ett länkat uttrycksträd
@@ -48,6 +50,8 @@ int main()
    cout << "e3.get_postfix() = " << e3.get_postfix() << '\n';
    cout << "e3.empty() = " << e3.empty() << "\n\n";
 
+   e3.print_tree(cout);
+
    e2.swap(e3);
 
    cout << "e2.evaluate() = " << e2.evaluate() << '\n';
@@ -55,7 +59,7 @@ int main()
    cout << "e2.empty() = " << e2.empty() << "\n\n";
 
    Expression e4(e3);
-
+    /*
    try
    {
       cout << "e4.evaluate() = " << e4.evaluate() << '\n';
@@ -66,7 +70,7 @@ int main()
    }
    cout << "e4.get_postfix() = " << e4.get_postfix() << '\n';
    cout << "e4.empty() = " << e4.empty() << "\n\n";
-*/
+      */
 
    return 0;
 }

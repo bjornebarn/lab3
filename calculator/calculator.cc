@@ -1,8 +1,8 @@
 /*
  * Calculator.cc
  */
-#include "Calculator.h"
-#include "Expression.h"
+#include "calculator.h"
+#include "expression.h"
 #include <cctype>
 #include <iostream>
 #include <stdexcept>

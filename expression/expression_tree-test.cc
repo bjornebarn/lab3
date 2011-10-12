@@ -39,7 +39,10 @@ int main()
    }
    cout << "t2->get_postfix() = " << t2->get_postfix() << '\n';
    cout << "t2->str() = " << t2->str() << "\n\n";
-   t2->print(cout);
+   //t2->print(cout);
+
+   Expression_Tree* t3 = new Times(t1, t2);
+   t3->print(cout);
 
    return 0;
 }

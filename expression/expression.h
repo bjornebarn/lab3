@@ -24,14 +24,14 @@ class Expression
     public:
         // VIKTIGA SAKER ÅTERSTÅR ATT FIXA OCH KANSKE MODIFIERA
 
-        Expression(class Expression_Tree* = 0); 
+        Expression(Expression_Tree* = 0);
+        Expression(const Expression&);
 
         double      evaluate() const;
         std::string get_postfix() const;
         bool        empty() const;
         void        print_tree(std::ostream&) const;
         void        swap(Expression&);
-        friend void swap(Expression&, Expression&);
 };
 
 void swap(Expression&, Expression&);

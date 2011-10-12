@@ -121,28 +121,28 @@ string Binary_Operator::get_postfix()
 string Operand::get_postfix() { return str(); }
 
 
-void Binary_Operator::print(ostream& os)
+void Binary_Operator::print(ostream& os, string indent)
 {
-    rhs->print(os << "  ");
-    os << " /\n";
-    os << str() << "\n";
-    os << " \\\n";
-    lhs->print(os << "  ");
+    rhs->print(os, indent + "  ");
+    os << indent << " /\n";
+    os << indent << str() << "\n";
+    os << indent << " \\\n";
+    lhs->print(os, indent + "  ");
 }
 
-void Integer::print(ostream& os)
+void Integer::print(ostream& os, string indent)
 {
-    os << i << "\n";
+    os << indent << i << "\n";
 }    
 
-void Real::print(ostream& os)
+void Real::print(ostream& os, string indent)
 {
-    os << d << "\n";
+    os << indent << d << "\n";
 } 
 
-void Variable::print(ostream& os)
+void Variable::print(ostream& os, string indent)
 {
-    os << var << "\n";
+    os << indent << var << "\n";
 } 
 Expression_Tree* Assign::clone()
 {

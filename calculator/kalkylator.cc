@@ -5,7 +5,7 @@
  * körs. Om ett undantag kastas av Calculator::run() fångas detta och 
  * programmet avslutas sedan efter att ett felmeddelande skrivits ut.
  */
-#include "Calculator.h"
+#include "calculator.h"
 #include <iostream>
 using namespace std;
 

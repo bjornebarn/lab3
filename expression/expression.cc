@@ -19,14 +19,22 @@ using namespace std;
 
 // IMPLEMENTERA STUBBARNA NEDAN KORREKT.
 
-/*
- * evaluate()
- */
-Expression::Expression(class Expression_Tree* Temp_Tree)
+Expression::Expression(Expression_Tree* Temp_Tree)
 {
     Exp_Tree = Temp_Tree;
 }
 
+Expression::Expression(const Expression& Temp_Tree)
+{
+    if (Temp_Tree.empty())
+        Exp_Tree = 0;
+    else
+        Exp_Tree = Temp_Tree.Exp_Tree->clone();
+}
+
+/*
+ * evaluate()
+ */
 double Expression::evaluate() const
 {
    return Exp_Tree->evaluate();
@@ -65,8 +73,11 @@ void Expression::print_tree(std::ostream& os) const
 void Expression::swap(Expression& exp)
 {
     Expression_Tree* temp_ptr = Exp_Tree;
-    Exp_Tree = exp.Exp_Tree;
-    exp.Exp_Tree = temp_ptr;  // <F6><F9><F3><F11>
+    if (exp.empty())
+        Exp_Tree = 0;
+    else
+        Exp_Tree = exp.Exp_Tree;
+    exp.Exp_Tree = temp_ptr;  
 }
 
 /*
@@ -74,9 +85,7 @@ void Expression::swap(Expression& exp)
  */
 void swap(Expression& exp1, Expression& exp2)
 {
-    Expression_Tree* temp_ptr = exp1.Exp_Tree;
-    exp1.Exp_Tree = exp2.Exp_Tree;
-    exp2.Exp_Tree = temp_ptr;
+    exp1.swap(exp2);
 }  
 
 
