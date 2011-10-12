@@ -3,6 +3,7 @@
  */
 #ifndef EXPRESSION_H
 #define EXPRESSION_H
+#include "variable_table.h"
 #include <iosfwd>
 #include <stdexcept>
 #include <string>
@@ -20,6 +21,7 @@ class Expression
 {
     private:
         Expression_Tree* Exp_Tree;
+        Variable_Table* var_table;
 
     public:
         // VIKTIGA SAKER ÅTERSTÅR ATT FIXA OCH KANSKE MODIFIERA
@@ -36,6 +38,6 @@ class Expression
 
 void swap(Expression&, Expression&);
 
-Expression make_expression(const std::string& infix);
+Expression make_expression(const std::string& infix, Variable_Table* var_table);
 
 #endif

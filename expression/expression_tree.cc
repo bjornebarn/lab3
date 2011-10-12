@@ -12,8 +12,9 @@ using namespace std;
 // Separata definitioner för för Expression_Tree-klasserna definieras här.
 
 
-Assign::Assign(Expression_Tree* var, Expression_Tree* right)
+Assign::Assign(Expression_Tree* var, Expression_Tree* right, Variable_Table* temp_table)
 {
+    var_table = temp_table;
     lhs = var;
     rhs = right;
 }
@@ -52,12 +53,13 @@ Integer::Integer(int x) { i = x; }
 
 Real::Real(double y) { d = y; }
 
-Variable::Variable(string str) { var = str; }
+Variable::Variable(string str, Variable_Table* temp_table) { var = str; var_table = temp_table; }
+
 
 double Assign::evaluate()
 {
-    double temp = lhs->evaluate;
-    var_table.insert(rhs, temp);
+    double temp = lhs->evaluate();
+    var_table->insert(rhs->str(), temp);
     return temp; 
 }
 
@@ -90,7 +92,7 @@ double Integer::evaluate() { return (double) i; }
 
 double Real::evaluate() { return d; }
 
-double Variable::evaluate() { return 13.5; }
+double Variable::evaluate() { return var_table->get_value(var); }
  
 string Assign::str() { return "="; }
 string Plus::str() { return "+"; }
@@ -149,7 +151,7 @@ void Variable::print(ostream& os, string indent)
 } 
 Expression_Tree* Assign::clone()
 {
-    Expression_Tree* clone = new Assign(lhs->clone(), rhs->clone());
+    Expression_Tree* clone = new Assign(lhs->clone(), rhs->clone(), var_table);
     return clone;
 }
 
@@ -197,11 +199,11 @@ Expression_Tree* Real::clone()
 
 Expression_Tree* Variable::clone()
 {
-    Expression_Tree* clone = new Variable(var);
+    Expression_Tree* clone = new Variable(var, var_table);
     return clone;
 }
 
  
-void Variable::set_value(double value) {  }
+void Variable::set_value(double value) { var_table->set_value(var, value); }
 
-double Variable::get_value() { blalbalba ; }
+double Variable::get_value() { return var_table->get_value(var); }

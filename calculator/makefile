@@ -11,10 +11,10 @@ CCC = g++
 CCFLAGS  += -std=c++98 -pedantic -Wall -Wextra
 
 # Preprocessorflaggor, -I lägger till en filkatalog i inkluderingssökvägen.
-CPPFLAGS += -I$(EXPRESSION)
+CPPFLAGS += -I$(EXPRESSION) -I.
 
 # Objektkodsmoduler som ingår i den kompletta kalkylatorn.
-OBJECTS = kalkylator.o calculator.o expression.o expression_tree.o
+OBJECTS = kalkylator.o calculator.o variable_table.o expression.o expression_tree.o 
 
 # Huvudmål - skapas med kommandot 'make' eller 'make kalkylator'.
 kalkylator: $(OBJECTS) makefile
@@ -26,6 +26,9 @@ kalkylator.o: kalkylator.cc
 
 calculator.o: calculator.h calculator.cc
 	$(CCC) $(CCFLAGS) $(CPPFLAGS) -c calculator.cc
+
+variable_table.o: variable_table.h variable_table.cc
+	$(CCC) $(CCFLAGS) $(CPPFLAGS) -c variable_table.cc
 
 expression.o: $(EXPRESSION)/expression.h $(EXPRESSION)/expression.cc
 	$(CCC) $(CCFLAGS) $(CPPFLAGS) -c $(EXPRESSION)/expression.cc

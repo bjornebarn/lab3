@@ -1,5 +1,5 @@
-#ifndef VARIABLE_TABLE.H
-#define VARIABLE_TABLE.H
+#ifndef VARIABLE_TABLE_H
+#define VARIABLE_TABLE_H
 
 #include <map>
 #include <iostream>

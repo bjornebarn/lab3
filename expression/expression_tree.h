@@ -3,6 +3,7 @@
  */
 #ifndef EXPRESSIONTREE_H
 #define EXPRESSIONTREE_H
+#include "variable_table.h"
 #include <iosfwd>
 #include <string>
 #include <stdexcept>
@@ -40,7 +41,7 @@ public:
 
 class Binary_Operator : public Expression_Tree
 {
-    protected: //Kanske?
+    protected:
         Expression_Tree* lhs;
         Expression_Tree* rhs;
 
@@ -65,8 +66,10 @@ class Operand : public Expression_Tree
 
 class Assign : public Binary_Operator
 {
+    private:
+        Variable_Table* var_table;
     public:
-       Assign(Expression_Tree* left, Expression_Tree* right);  
+       Assign(Expression_Tree* left, Expression_Tree* right, Variable_Table*);  
        double           evaluate();          
        std::string      str();               
        Expression_Tree* clone();
@@ -147,10 +150,11 @@ class Variable : public Operand
 {
     private:
         std::string var;
+        Variable_Table* var_table;
 
     public:
         std::string      str();               
-        Variable(std::string);
+        Variable(std::string, Variable_Table*);
         double  evaluate();        
         void    set_value(double value);
         double  get_value();

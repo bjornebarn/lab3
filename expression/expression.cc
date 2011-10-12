@@ -1,6 +1,7 @@
 /*
  * Expression.cc    2011-06-28
  */
+#include "variable_table.h"
 #include "expression.h"
 #include "expression_tree.h"
 #include <algorithm>
@@ -335,7 +336,7 @@ namespace
    // make_expression_tree() tar en postfixsträng och returnerar ett motsvarande 
    // länkat träd av Expression_Tree-noder. Tänk på minnesläckage...
 
-   Expression_Tree* make_expression_tree(const std::string& postfix)
+   Expression_Tree* make_expression_tree(const std::string& postfix, Variable_Table* var_table)
    {
       using std::stack;
       using std::string;
@@ -387,7 +388,7 @@ namespace
 	    }
 	    else if (token == "=")
 	    {
-	       tree_stack.push(new Assign(lhs, rhs));
+	       tree_stack.push(new Assign(lhs, rhs, var_table));
 	    }
 	 }
 	 else if (is_integer(token))
@@ -400,7 +401,7 @@ namespace
 	 }
 	 else if (is_identifier(token))
 	 {
-	    tree_stack.push(new Variable(token));
+	    tree_stack.push(new Variable(token,var_table));
 	 }
 	 else
 	 {
@@ -435,7 +436,7 @@ namespace
 /*
  * make_expression()
  */
-Expression make_expression(const string& infix)
+Expression make_expression(const string& infix, Variable_Table* var_table)
 {
-   return Expression(make_expression_tree(make_postfix(infix)));
+   return Expression(make_expression_tree(make_postfix(infix), var_table));
 }
