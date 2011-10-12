@@ -1,8 +1,6 @@
 /*
  * expression_tree.cc    2011-06-28
  */
-#ifndef EXPRESSION_TREE
-#define EXPRESSION_TREE
 #include "expression_tree.h"
 #include <iostream>
 #include <sstream>
@@ -205,4 +203,3 @@ Expression_Tree* Variable::clone()
 
 //double Variable::get_value() { blalbalba ; }
 //
-#endif

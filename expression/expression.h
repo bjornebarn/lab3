@@ -31,6 +31,7 @@ class Expression
         bool        empty() const;
         void        print_tree(std::ostream&) const;
         void        swap(Expression&);
+        friend void swap(Expression&, Expression&);
 };
 
 void swap(Expression&, Expression&);
