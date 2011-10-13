@@ -14,8 +14,6 @@
 #include <stdexcept>
 #include <string>
 #include <vector>
-// Enbart tillfälligt - ta bort detta efter att evaluate() implementerats!
-#include <limits>
 using namespace std;
 
 // IMPLEMENTERA STUBBARNA NEDAN KORREKT.

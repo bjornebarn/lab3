@@ -8,13 +8,17 @@
 #include <iostream>
 #include <stdexcept>
 #include <string>
+#include <ctype.h>
+#include <sstream>
+
 using namespace std;
 
-const string Calculator::valid_command_("?HUBPTS");
+const string Calculator::valid_command_("?HUBPILTNARVXS");
 
 Calculator::Calculator()
 {
     var_table = new Variable_Table;
+    cur_exp = -1;
 }
 
 Calculator::~Calculator() { delete var_table; }
@@ -64,9 +68,32 @@ void Calculator::print_help()
  */
 void Calculator::get_command()
 {
+   string input;
+
    cout << ">> ";
-   cin >> command_;
+   getline(cin,input);
+   istringstream iss(input);
+   iss >> command_;
    command_ = toupper(command_);
+   if (input[1] == ' ')
+   {
+       iss >> com_num;
+   }
+   else
+       com_num = -1;
+}
+
+int Calculator::what_num()
+{
+    int num;
+
+    if (com_num < 0)
+        num = cur_exp;
+    else
+        num = com_num;
+    if (num < 0)
+        throw out_of_range("Inga uttryck existerar!");
+    return num;
 }
 
 /**
@@ -96,11 +123,11 @@ void Calculator::execute_command()
    else if (command_ == 'U')
       read_expression(cin);
    else if (command_ == 'B')
-      cout << current_expression_.evaluate() << "\n";
+      cout << exp_vec[what_num()].evaluate() << "\n";
    else if (command_ == 'P')
-      cout << current_expression_.get_postfix() << "\n";
+      cout << exp_vec[what_num()].get_postfix() << "\n";
    else if (command_ == 'T')
-      current_expression_.print_tree(cout);
+      exp_vec[what_num()].print_tree(cout);
    else if (command_ == 'S')
       cout << "Kalkylatorn avlutas, välkommen åter!\n";
    else
@@ -120,7 +147,8 @@ void Calculator::read_expression(istream& is)
 
    if (getline(is, infix))
    {
-      current_expression_ = make_expression(infix, var_table);
+      exp_vec.push_back(make_expression(infix, var_table));
+      cur_exp += 1;
    }
    else
    {
