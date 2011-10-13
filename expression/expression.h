@@ -39,6 +39,6 @@ class Expression
 
 void swap(Expression&, Expression&);
 
-Expression make_expression(const std::string& infix, Variable_Table* var_table);
+Expression* make_expression(const std::string& infix, Variable_Table* var_table);
 
 #endif

@@ -20,7 +20,7 @@ class Calculator
         Calculator(const Calculator&);
         Calculator& operator=(const Calculator&);
         Variable_Table* var_table;
-        vector<Expression> exp_vec;
+        vector<Expression*> exp_vec;
         int cur_exp;
 
         static const std::string valid_command_;

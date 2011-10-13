@@ -124,17 +124,17 @@ void Calculator::execute_command()
    else if (command_ == 'U')
       read_expression(cin);
    else if (command_ == 'B')
-      cout << exp_vec[what_num()].evaluate() << "\n";
+      cout << exp_vec[what_num()]->evaluate() << "\n";
    else if (command_ == 'P')
-      cout << exp_vec[what_num()].get_postfix() << "\n";
+      cout << exp_vec[what_num()]->get_postfix() << "\n";
    else if (command_ == 'I')
-      //cout << exp_vec[what_num()].get_infix() << "\n";
+      //cout << exp_vec[what_num()]->get_infix() << "\n";
       cout << "Not implemented\n";
    else if (command_ == 'L')
-      //cout << exp_vec[what_num()].get_infix() << "\n";
+      //cout << exp_vec[what_num()]->get_infix() << "\n";
       cout << "Not implemented\n";
    else if (command_ == 'T')
-      exp_vec[what_num()].print_tree(cout);
+      exp_vec[what_num()]->print_tree(cout);
    else if (command_ == 'N')
       cout << "Antal uttryck: " << exp_vec.size() << "\n";
    else if (command_ == 'A')

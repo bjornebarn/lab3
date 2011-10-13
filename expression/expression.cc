@@ -31,7 +31,7 @@ Expression::Expression(const Expression& Temp_Tree)
         Exp_Tree = Temp_Tree.Exp_Tree->clone();
 }
 
-Expression::~Expression() { /* delete Exp_Tree;*/ }
+Expression::~Expression() { delete Exp_Tree; }
 
 /*
  * evaluate()
@@ -436,7 +436,7 @@ namespace
 /*
  * make_expression()
  */
-Expression make_expression(const string& infix, Variable_Table* var_table)
+Expression* make_expression(const string& infix, Variable_Table* var_table)
 {
-   return Expression(make_expression_tree(make_postfix(infix), var_table));
+   return new Expression(make_expression_tree(make_postfix(infix), var_table));
 }
