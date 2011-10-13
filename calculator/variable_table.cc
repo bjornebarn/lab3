@@ -54,7 +54,7 @@ void Variable_Table::list(ostream& os)
     map<string, double>::iterator end = var_table.end();
     for (map<string, double>::iterator it = var_table.begin(); it != end; ++it)
     {
-        os << it->first << ", " << it->second << "\n";
+        os << it->first << ": " << it->second << "\n";
     } 
 }
 

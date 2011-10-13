@@ -78,6 +78,7 @@ void Calculator::get_command()
    if (input[1] == ' ')
    {
        iss >> com_num;
+       com_num -= 1;
    }
    else
        com_num = -1;
@@ -91,8 +92,8 @@ int Calculator::what_num()
         num = cur_exp;
     else
         num = com_num;
-    if (num < 0)
-        throw out_of_range("Inga uttryck existerar!");
+    if (num < 0 || exp_vec.size() <= num)
+        throw out_of_range("Inget uttryck finns!");
     return num;
 }
 
@@ -126,8 +127,29 @@ void Calculator::execute_command()
       cout << exp_vec[what_num()].evaluate() << "\n";
    else if (command_ == 'P')
       cout << exp_vec[what_num()].get_postfix() << "\n";
+   else if (command_ == 'I')
+      //cout << exp_vec[what_num()].get_infix() << "\n";
+      cout << "Not implemented\n";
+   else if (command_ == 'L')
+      //cout << exp_vec[what_num()].get_infix() << "\n";
+      cout << "Not implemented\n";
    else if (command_ == 'T')
       exp_vec[what_num()].print_tree(cout);
+   else if (command_ == 'N')
+      cout << "Antal uttryck: " << exp_vec.size() << "\n";
+   else if (command_ == 'A')
+      cur_exp = what_num();
+   else if (command_ == 'R')
+   {
+       int num = what_num();
+       exp_vec.erase(exp_vec.begin() + num);
+       if (cur_exp >= num)
+           cur_exp -= 1;
+   }
+   else if (command_ == 'V')
+      var_table->list(cout);
+   else if (command_ == 'X')
+      var_table->clear();
    else if (command_ == 'S')
       cout << "Kalkylatorn avlutas, välkommen åter!\n";
    else
