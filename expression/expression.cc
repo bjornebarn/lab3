@@ -33,7 +33,7 @@ Expression::Expression(const Expression& Temp_Tree)
         Exp_Tree = Temp_Tree.Exp_Tree->clone();
 }
 
-Expression::~Expression() { delete Exp_Tree; }
+Expression::~Expression() { /* delete Exp_Tree;*/ }
 
 /*
  * evaluate()
