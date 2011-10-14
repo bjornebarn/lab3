@@ -56,6 +56,8 @@ void Calculator::print_help()
    cout << "  H, ?  Skriv ut denna information\n";
    cout << "  U     Mata in ett nytt uttryck\n";
    cout << "  B     Beräkna aktuellt uttryck\n";
+   cout << "  I     Visa aktuellt uttryck som infix\n";
+   cout << "  L     Visa alla inmatade uttryck som infix\n";
    cout << "  P     Visa aktuellt uttryck som postfix\n";
    cout << "  T     Visa aktuellt uttryck som träd\n";
    cout << "  S     Avsluta kalkylatorn\n";
@@ -130,8 +132,10 @@ void Calculator::execute_command()
    else if (command_ == 'I')
       cout << exp_vec[what_num()]->get_infix() << "\n";
    else if (command_ == 'L')
-      //cout << exp_vec[what_num()]->get_infix() << "\n";
-      cout << "Not implemented\n";
+   {
+       for (int i = 0, size = exp_vec.size(); i < size; ++i)
+           cout << i + 1 << ": " << exp_vec[i]->get_infix() << "\n";
+   }
    else if (command_ == 'T')
       exp_vec[what_num()]->print_tree(cout);
    else if (command_ == 'N')
