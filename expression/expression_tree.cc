@@ -9,6 +9,12 @@
 // Inkludera för allt som kommer att användas i denna fil!
 using namespace std;
 
+class expression_tree_error : public logic_error
+{
+    public:
+    explicit expression_tree_error(const string& what_arg) throw()
+        : logic_error(what_arg) {}
+};
 // Separata definitioner för för Expression_Tree-klasserna definieras här.
 
 Binary_Operator::Binary_Operator(Expression_Tree* left, Expression_Tree* right)
@@ -51,41 +57,113 @@ Binary_Operator::~Binary_Operator()
 
 double Assign::evaluate()
 {
+    try
+    {
     double temp = rhs->evaluate();
     var_table->insert(lhs->str(), temp);
     return temp;
+    }
+    catch (...)
+    {
+        throw expression_tree_error("Error in eval");
+    }
 }
 
 double Plus::evaluate()
 {
+    try
+    {
     return lhs->evaluate() + rhs->evaluate();
+    }
+    catch (...)
+    {
+        throw expression_tree_error("Error in eval");
+    }
 }
 
 double Minus::evaluate()
 {
+    try
+    {
     return lhs->evaluate() - rhs->evaluate();
+    }
+    catch (...)
+    {
+        throw expression_tree_error("Error in eval");
+    }
 }
 
 double Times::evaluate()
 {
+    try
+    {
     return lhs->evaluate() * rhs->evaluate();
+    }
+    catch (...)
+    {
+        throw expression_tree_error("Error in eval");
+    }
 }
 
 double Divide::evaluate()
 {
+    try
+    {
     return lhs->evaluate() / rhs->evaluate();
+    }
+    catch (...)
+    {
+        throw expression_tree_error("Error in eval");
+    }
 }
 
 double Power::evaluate()
 {
+    try
+    {
     return pow(lhs->evaluate(), rhs->evaluate());
+    }
+    catch (...)
+    {
+        throw expression_tree_error("Error in eval");
+    }
 }
 
-double Integer::evaluate() { return (double) i; }
+double Integer::evaluate()
+{
+    try
+    {
+    return (double) i;
+    }
+    catch (...)
+    {
+        throw expression_tree_error("Error in eval");
+    }
+}
 
-double Real::evaluate() { return d; }
+double Real::evaluate() 
+{
+    try
+    {
+    return d;
+    }
+    catch (...)
+    {
+        throw expression_tree_error("Error in eval");
+    }
+}
 
-double Variable::evaluate() { return var_table->get_value(var); }
+double Variable::evaluate()
+{
+    try
+    {
+    return var_table->get_value(var);
+    }
+    catch (...)
+    {
+        throw expression_tree_error("Error in eval");
+    }
+}
 
 string Assign::str() { return "="; }
 string Plus::str() { return "+"; }
@@ -195,58 +273,120 @@ void Variable::print(ostream& os, string indent)
 }
 Expression_Tree* Assign::clone()
 {
-    Expression_Tree* clone = new Assign(lhs->clone(), rhs->clone(), var_table);
-    return clone;
+    try
+    {
+        Expression_Tree* clone = new Assign(lhs->clone(), rhs->clone(), var_table);
+        return clone;
+    }
+    catch (const bad_alloc& e)
+    {
+        throw expression_tree_error("Clone failed");
+    }
 }
 
 Expression_Tree* Plus::clone()
 {
-    Expression_Tree* clone = new Plus(lhs->clone(), rhs->clone());
-    return clone;
+    try
+    {
+        Expression_Tree* clone = new Plus(lhs->clone(), rhs->clone());
+        return clone;
+    }
+    catch (const bad_alloc& e)
+    {
+        throw expression_tree_error("Clone failed");
+    }
 }
 
 Expression_Tree* Minus::clone()
 {
-    Expression_Tree* clone = new Minus(lhs->clone(), rhs->clone());
-    return clone;
+    try
+    {
+        Expression_Tree* clone = new Minus(lhs->clone(), rhs->clone());
+        return clone;
+    }
+    catch (const bad_alloc& e)
+    {
+        throw expression_tree_error("Clone failed");
+    }
 }
 
 Expression_Tree* Times::clone()
 {
-    Expression_Tree* clone = new Times(lhs->clone(), rhs->clone());
-    return clone;
+    try
+    {
+        Expression_Tree* clone = new Times(lhs->clone(), rhs->clone());
+        return clone;
+    }
+    catch (const bad_alloc& e)
+    {
+        throw expression_tree_error("Clone failed");
+    }
 }
 
 Expression_Tree* Divide::clone()
 {
-    Expression_Tree* clone = new Divide(lhs->clone(), rhs->clone());
-    return clone;
+    try
+    {
+        Expression_Tree* clone = new Divide(lhs->clone(), rhs->clone());
+        return clone;
+    }
+    catch (const bad_alloc& e)
+    {
+        throw expression_tree_error("Clone failed");
+    }
 }
 
 Expression_Tree* Power::clone()
 {
-    Expression_Tree* clone = new Power(lhs->clone(), rhs->clone());
-    return clone;
+    try
+    {
+        Expression_Tree* clone = new Power(lhs->clone(), rhs->clone());
+        return clone;
+    }
+    catch (const bad_alloc& e)
+    {
+        throw expression_tree_error("Clone failed");
+    }
 }
 
 Expression_Tree* Integer::clone()
 {
-    Expression_Tree* clone = new Integer(i);
-    return clone;
+    try
+    {
+        Expression_Tree* clone = new Integer(i);
+        return clone;
+    }
+    catch (const bad_alloc& e)
+    {
+        throw expression_tree_error("Clone failed");
+    }
 }
 
 Expression_Tree* Real::clone()
 {
-    Expression_Tree* clone = new Real(d);
-    return clone;
+    try
+    {
+        Expression_Tree* clone = new Real(d);
+        return clone;
+    }
+    catch (const bad_alloc& e)
+    {
+        throw expression_tree_error("Clone failed");
+    }
 }
 
 Expression_Tree* Variable::clone()
 {
-    Expression_Tree* clone = new Variable(var, var_table);
-    return clone;
+    try
+    {
+        Expression_Tree* clone = new Variable(var, var_table);
+        return clone;
+    }
+    catch (const bad_alloc& e)
+    {
+        throw expression_tree_error("Clone failed");
+    }
 }
-
 
 void Variable::set_value(double value) { var_table->set_value(var, value); }
 
