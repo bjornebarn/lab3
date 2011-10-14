@@ -55,11 +55,16 @@ void Calculator::print_help()
 {
    cout << "  H, ?  Skriv ut denna information\n";
    cout << "  U     Mata in ett nytt uttryck\n";
-   cout << "  B     Beräkna aktuellt uttryck\n";
-   cout << "  I     Visa aktuellt uttryck som infix\n";
+   cout << "  B n   Beräkna uttryck n, om inget n beräknas aktuellt uttryck\n";
+   cout << "  I n   Visa uttryck n som infix, om inget n visas aktuellt uttryck\n";
    cout << "  L     Visa alla inmatade uttryck som infix\n";
-   cout << "  P     Visa aktuellt uttryck som postfix\n";
-   cout << "  T     Visa aktuellt uttryck som träd\n";
+   cout << "  P n   Visa uttryck n som postfix, om inget n visas aktuellt uttryck\n";
+   cout << "  T n   Visa uttryck n som träd, om inget n visas aktuellt uttryck\n";
+   cout << "  N     Visa antal lagrade uttryck\n";
+   cout << "  A n   Gör uttryck n till aktuellt uttryck\n";
+   cout << "  R n   Radera uttryck n, om inget n raderas aktuellt uttryck\n";
+   cout << "  V     Lista alla variabler\n";
+   cout << "  X     Radera alla variabler\n";
    cout << "  S     Avsluta kalkylatorn\n";
 }
 
