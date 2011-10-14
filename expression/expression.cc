@@ -18,6 +18,13 @@ using namespace std;
 
 // IMPLEMENTERA STUBBARNA NEDAN KORREKT.
 
+class expression_error : public logic_error
+{
+    public:
+        explicit expression_error(const string& what_arg) throw()
+            : logic_error(what_arg) {}
+};     
+
 Expression::Expression(Expression_Tree* Temp_Tree)
 {
     Exp_Tree = Temp_Tree;
@@ -28,17 +35,20 @@ Expression::Expression(const Expression& Temp_Tree)
     if (Temp_Tree.empty())
         Exp_Tree = 0;
     else
-        Exp_Tree = Temp_Tree.Exp_Tree->clone();
+    {
+        try
+        {
+            Exp_Tree = Temp_Tree.Exp_Tree->clone();
+        }
+        catch (...)
+        {
+            delete Exp_Tree;
+            throw expression_error("Clone failed");
+        }
+    }
 }
 
 Expression::~Expression() { delete Exp_Tree; }
-
-class expression_error : public logic_error
-{
-    public:
-        explicit expression_error(const string& what_arg) throw()
-            : logic_error(what_arg) {}
-};     
 
 /*
  * evaluate()
