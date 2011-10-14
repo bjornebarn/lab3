@@ -128,8 +128,7 @@ void Calculator::execute_command()
    else if (command_ == 'P')
       cout << exp_vec[what_num()]->get_postfix() << "\n";
    else if (command_ == 'I')
-      //cout << exp_vec[what_num()]->get_infix() << "\n";
-      cout << "Not implemented\n";
+      cout << exp_vec[what_num()]->get_infix() << "\n";
    else if (command_ == 'L')
       //cout << exp_vec[what_num()]->get_infix() << "\n";
       cout << "Not implemented\n";

@@ -118,6 +118,57 @@ string Binary_Operator::get_postfix()
 
 string Operand::get_postfix() { return str(); }
 
+string Binary_Operator::get_infix()
+{
+    string temp_lhs = "";
+    string temp_rhs = "";
+    if (str() == "+")
+        return lhs->get_infix().append(" + "+rhs->get_infix());
+
+    else if (str() == "-" or str() == "*")
+    {
+        if (lhs->str() == "+" or lhs->str() == "-")
+            temp_lhs = "("+lhs->get_infix()+")";
+        else
+            temp_lhs = lhs->get_infix();
+        if (rhs->str() == "+" or rhs->str() == "-")
+            temp_rhs = "("+rhs->get_infix()+")";
+        else
+            temp_rhs = rhs->get_infix();
+        return temp_lhs+" "+str()+" "+temp_rhs;
+    }
+
+    else if (str() == "/")
+    {
+        if (lhs->str() == "-" or lhs->str() == "+" or lhs->str() == "/")
+            temp_lhs = "("+lhs->get_infix()+")";
+        else
+            temp_lhs = lhs->get_infix();
+        if (rhs->str() == "-" or rhs->str() == "+" or rhs->str() == "/" or rhs->str() == "*")
+            temp_rhs = "("+rhs->get_infix()+")";
+        else
+            temp_rhs = rhs->get_infix();
+        return temp_lhs+" / "+temp_rhs;
+    }
+    else if (str() == "^")
+    {
+        if (lhs->str() == "-" or lhs->str() == "+" or lhs->str() == "/" or lhs->str() == "*")
+            temp_lhs = "("+lhs->get_infix()+")";
+        else
+            temp_lhs = lhs->get_infix();
+        if (rhs->str() == "-" or rhs->str() == "+" or rhs->str() == "/" or rhs->str() == "*")
+            temp_rhs = "("+rhs->get_infix()+")";
+        else
+            temp_rhs = rhs->get_infix();
+        return temp_lhs+" ^ "+temp_rhs;
+    }
+    else if (str() == "=")
+        return lhs->get_infix()+" = "+rhs->get_infix();
+    return "";
+}
+
+string Operand::get_infix() { return str(); }
+
 
 void Binary_Operator::print(ostream& os, string indent)
 {

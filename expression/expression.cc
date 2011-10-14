@@ -50,6 +50,14 @@ std::string Expression::get_postfix() const
 }
 
 /*
+ *
+ */
+std::string Expression::get_infix() const
+{
+    return Exp_Tree->get_infix();
+}
+
+/*
  * empty()
  */
 bool Expression::empty() const

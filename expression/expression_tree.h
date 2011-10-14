@@ -25,6 +25,7 @@ public:
 
    virtual double           evaluate() = 0;
    virtual std::string      get_postfix() = 0;
+   virtual std::string      get_infix() = 0;
    virtual std::string      str() = 0;
    virtual void             print(std::ostream&, std::string = "") = 0;
    virtual Expression_Tree* clone() = 0;
@@ -49,6 +50,7 @@ class Binary_Operator : public Expression_Tree
         Binary_Operator(Expression_Tree*,Expression_Tree*);
         ~Binary_Operator();
         std::string      get_postfix();
+        std::string      get_infix();
         void             print(std::ostream&, std::string = "");
 };
 
@@ -56,6 +58,7 @@ class Operand : public Expression_Tree
 {
     public:
         std::string      get_postfix();
+        std::string      get_infix();
 };
 
 /*
