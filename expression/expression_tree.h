@@ -24,9 +24,9 @@ public:
    // och destruering! Det kan även tänkas att någon modifiering behövs.
 
    virtual double           evaluate() = 0;
-   virtual std::string      get_postfix() = 0;
-   virtual std::string      get_infix() = 0;
-   virtual std::string      str() = 0;
+   virtual std::string      get_postfix() const = 0;
+   virtual std::string      get_infix() const = 0;
+   virtual std::string      str() const = 0;
    virtual void             print(std::ostream&, std::string = "") = 0;
    virtual Expression_Tree* clone() = 0;
 };
@@ -49,16 +49,16 @@ class Binary_Operator : public Expression_Tree
     public:
         Binary_Operator(Expression_Tree*,Expression_Tree*);
         ~Binary_Operator();
-        std::string      get_postfix();
-        std::string      get_infix();
+        std::string      get_postfix() const;
+        std::string      get_infix() const;
         void             print(std::ostream&, std::string = "");
 };
 
 class Operand : public Expression_Tree
 {
     public:
-        std::string      get_postfix();
-        std::string      get_infix();
+        std::string      get_postfix() const;
+        std::string      get_infix() const;
 };
 
 /*
@@ -77,7 +77,7 @@ class Assign : public Binary_Operator
        Assign(Expression_Tree*, Expression_Tree*, Variable_Table*);
        ~Assign();
        double           evaluate();
-       std::string      str();
+       std::string      str() const;
        Expression_Tree* clone();
 };
 
@@ -86,7 +86,7 @@ class Plus : public Binary_Operator
     public:
         Plus(Expression_Tree*, Expression_Tree*);
         double           evaluate();
-        std::string      str();
+        std::string      str() const;
         Expression_Tree* clone();
 };
 
@@ -95,7 +95,7 @@ class Minus : public Binary_Operator
     public:
         Minus(Expression_Tree*, Expression_Tree*);
         double           evaluate();
-        std::string      str();
+        std::string      str() const;
         Expression_Tree* clone();
 };
 
@@ -104,7 +104,7 @@ class Times : public Binary_Operator
     public:
         Times(Expression_Tree*, Expression_Tree*);
         double           evaluate();
-        std::string      str();
+        std::string      str() const;
         Expression_Tree* clone();
 };
 
@@ -113,7 +113,7 @@ class Divide : public Binary_Operator
     public:
         Divide(Expression_Tree*, Expression_Tree*);
         double           evaluate();
-        std::string      str();
+        std::string      str() const;
         Expression_Tree* clone();
 };
 
@@ -122,7 +122,7 @@ class Power: public Binary_Operator
     public:
         Power(Expression_Tree*, Expression_Tree*);
         double           evaluate();
-        std::string      str();
+        std::string      str() const;
         Expression_Tree* clone();
 };
 
@@ -135,7 +135,7 @@ class Integer : public Operand
         Integer(int);
         ~Integer();
         double           evaluate();
-        std::string      str();
+        std::string      str() const;
         void             print(std::ostream&, std::string = "");
         Expression_Tree* clone();
 };
@@ -149,7 +149,7 @@ class Real : public Operand
         Real(double);
         ~Real();
         double           evaluate();
-        std::string      str();
+        std::string      str() const;
         void             print(std::ostream&, std::string = "");
         Expression_Tree* clone();
 };
@@ -164,9 +164,9 @@ class Variable : public Operand
         Variable(std::string, Variable_Table*);
         ~Variable();
         double  evaluate();
-        std::string      str();
+        std::string      str() const;
         void    set_value(double);
-        double  get_value();
+        double  get_value() const;
         void             print(std::ostream&, std::string = "");
         Expression_Tree* clone();
 };

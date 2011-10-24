@@ -11,14 +11,14 @@ class Variable_Table
     private:
         map<string, double> var_table;
     public:
-        bool find(string);
-        void insert(string, double);
-        void remove(string);
-        void set_value(string, double);
-        double get_value(string);
+        bool find(string) const;
+        void insert(const string, double);
+        void remove(const string);
+        void set_value(const string, double);
+        double get_value(const string);
         void list(ostream&);
         void clear();
-        bool empty();
+        bool empty() const;
 };
 
 #endif

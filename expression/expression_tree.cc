@@ -57,146 +57,90 @@ Binary_Operator::~Binary_Operator()
 
 double Assign::evaluate()
 {
-    try
-    {
     double temp = rhs->evaluate();
     var_table->insert(lhs->str(), temp);
     return temp;
-    }
-    catch (...)
-    {
-        throw expression_tree_error("Error in eval");
-    }
 }
 
 double Plus::evaluate()
 {
-    try
-    {
     return lhs->evaluate() + rhs->evaluate();
-    }
-    catch (...)
-    {
-        throw expression_tree_error("Error in eval");
-    }
 }
 
 double Minus::evaluate()
 {
-    try
-    {
     return lhs->evaluate() - rhs->evaluate();
-    }
-    catch (...)
-    {
-        throw expression_tree_error("Error in eval");
-    }
 }
 
 double Times::evaluate()
 {
-    try
-    {
-    return lhs->evaluate() * rhs->evaluate();
+        return lhs->evaluate() * rhs->evaluate();
     }
-    catch (...)
-    {
-        throw expression_tree_error("Error in eval");
-    }
-}
 
 double Divide::evaluate()
 {
-    try
-    {
-    return lhs->evaluate() / rhs->evaluate();
-    }
-    catch (...)
-    {
-        throw expression_tree_error("Error in eval");
-    }
+        double temp_num = rhs->evaluate();
+        if (temp_num == 0)
+            throw expression_tree_error("Division by zero");
+        return lhs->evaluate() / temp_num;
 }
 
 double Power::evaluate()
 {
-    try
-    {
-    return pow(lhs->evaluate(), rhs->evaluate());
-    }
-    catch (...)
-    {
-        throw expression_tree_error("Error in eval");
-    }
+        double l_temp = lhs->evaluate();
+        double r_temp = rhs->evaluate();
+        if (l_temp < 0 and r_temp < 1 and r_temp > -1)
+            throw expression_tree_error("Complex numbers not implemented");
+    return pow(l_temp, r_temp);
 }
 
 double Integer::evaluate()
 {
-    try
-    {
     return (double) i;
-    }
-    catch (...)
-    {
-        throw expression_tree_error("Error in eval");
-    }
 }
 
 double Real::evaluate() 
 {
-    try
-    {
     return d;
-    }
-    catch (...)
-    {
-        throw expression_tree_error("Error in eval");
-    }
 }
 
 double Variable::evaluate()
 {
-    try
-    {
     return var_table->get_value(var);
-    }
-    catch (...)
-    {
-        throw expression_tree_error("Error in eval");
-    }
 }
 
-string Assign::str() { return "="; }
-string Plus::str() { return "+"; }
-string Minus::str() { return "-"; }
-string Times::str() { return "*"; }
-string Divide::str() { return "/"; }
-string Power::str() { return "^"; }
-string Integer::str()
+string Assign::str() const { return "="; }
+string Plus::str() const { return "+"; }
+string Minus::str() const { return "-"; }
+string Times::str() const { return "*"; }
+string Divide::str() const { return "/"; }
+string Power::str() const { return "^"; }
+string Integer::str() const
 {
     stringstream out;
     out << i;
     return out.str();
 }
-string Real::str()
+string Real::str() const
 {
     stringstream out;
     out << d;
     return out.str();
 }
-string Variable::str()
+string Variable::str() const
 {
     return var;
 }
 
 
-string Binary_Operator::get_postfix()
+string Binary_Operator::get_postfix() const
 {
     return lhs->get_postfix().append(" "+rhs->get_postfix().append(" "+str()));
 }
 
-string Operand::get_postfix() { return str(); }
+string Operand::get_postfix() const { return str(); }
 
-string Binary_Operator::get_infix()
+string Binary_Operator::get_infix() const
 {
     string temp_lhs = "";
     string temp_rhs = "";
@@ -245,7 +189,7 @@ string Binary_Operator::get_infix()
     return "";
 }
 
-string Operand::get_infix() { return str(); }
+string Operand::get_infix() const { return str(); }
 
 
 void Binary_Operator::print(ostream& os, string indent)
@@ -390,4 +334,4 @@ Expression_Tree* Variable::clone()
 
 void Variable::set_value(double value) { var_table->set_value(var, value); }
 
-double Variable::get_value() { return var_table->get_value(var); }
+double Variable::get_value() const { return var_table->get_value(var); }

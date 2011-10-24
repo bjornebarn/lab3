@@ -12,14 +12,14 @@ class variable_table_error : public logic_error
         : logic_error(what_arg) {}
 };
 
-bool Variable_Table::find(string var)
+bool Variable_Table::find(string var) const
 {
     if (var_table.find(var) == var_table.end())
         return false;
     return true;
 }            
 
-void Variable_Table::insert(string var, double value)
+void Variable_Table::insert(const string var, double value)
 {
     if (find(var))
         throw variable_table_error("Can not insert a variable that already exists!");
@@ -27,12 +27,12 @@ void Variable_Table::insert(string var, double value)
         var_table.insert(pair<string, double>(var, value));
 } 
 
-void Variable_Table::remove(string var)
+void Variable_Table::remove(const string var)
 {
    var_table.erase(var);
 }
 
-void Variable_Table::set_value(string var, double value)
+void Variable_Table::set_value(const string var, double value) 
 {
     if (not find(var))
         throw variable_table_error("Can not set a new value to a var that isn't in the table!");
@@ -40,7 +40,7 @@ void Variable_Table::set_value(string var, double value)
         var_table[var] = value;
 }
 
-double Variable_Table::get_value(string var)
+double Variable_Table::get_value(const string var)
 {    
     if (not find(var))
         throw variable_table_error("Cannot get value of a var not in the table!");
@@ -63,7 +63,7 @@ void Variable_Table::clear()
     var_table.clear();
 }
 
-bool Variable_Table::empty()
+bool Variable_Table::empty() const
 {
    return var_table.empty();
 }   
