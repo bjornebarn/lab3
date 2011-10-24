@@ -468,21 +468,21 @@ namespace
         }
         catch (const bad_alloc& e)
         {
-            cerr << "Bad memory allocation. Removing allocated memory...";
             while (! tree_stack.empty())
             {
                 delete tree_stack.top();
                 tree_stack.pop();
             }
+            throw expression_error("Bad memory allocation.");
         }
         catch (const expression_error& e)
         {
-            cerr << e.what();
             while (! tree_stack.empty())
             {
                 delete tree_stack.top();
                 tree_stack.pop();
             }
+            throw e;
         }
 
         // Returnera trädet (stacken försvinner nu)
