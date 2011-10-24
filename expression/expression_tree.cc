@@ -217,117 +217,171 @@ void Variable::print(ostream& os, string indent)
 }
 Expression_Tree* Assign::clone()
 {
+    Expression_Tree* l_temp;
+    Expression_Tree* r_temp;
+    Expression_Tree* clone;
     try
     {
-        Expression_Tree* clone = new Assign(lhs->clone(), rhs->clone(), var_table);
+        l_temp = lhs->clone();
+        r_temp = rhs->clone();
+        clone = new Assign(l_temp, r_temp, var_table);
         return clone;
     }
     catch (const bad_alloc& e)
     {
+        delete l_temp;
+        delete r_temp;
+        delete clone;
         throw expression_tree_error("Clone failed");
     }
 }
 
 Expression_Tree* Plus::clone()
 {
+    Expression_Tree* l_temp;
+    Expression_Tree* r_temp;
+    Expression_Tree* clone;
     try
     {
-        Expression_Tree* clone = new Plus(lhs->clone(), rhs->clone());
+        l_temp = lhs->clone();
+        r_temp = rhs->clone();
+        clone = new Plus(l_temp, r_temp);
         return clone;
     }
     catch (const bad_alloc& e)
     {
+        delete l_temp;
+        delete r_temp;
+        delete clone;
         throw expression_tree_error("Clone failed");
     }
 }
 
 Expression_Tree* Minus::clone()
 {
+    Expression_Tree* l_temp;
+    Expression_Tree* r_temp;
+    Expression_Tree* clone;
     try
     {
-        Expression_Tree* clone = new Minus(lhs->clone(), rhs->clone());
+        l_temp = lhs->clone();
+        r_temp = rhs->clone();
+        clone = new Minus(l_temp, r_temp);
         return clone;
     }
     catch (const bad_alloc& e)
     {
+        delete l_temp;
+        delete r_temp;
+        delete clone;
         throw expression_tree_error("Clone failed");
     }
 }
 
 Expression_Tree* Times::clone()
 {
+    Expression_Tree* l_temp;
+    Expression_Tree* r_temp;
+    Expression_Tree* clone;
     try
     {
-        Expression_Tree* clone = new Times(lhs->clone(), rhs->clone());
+        l_temp = lhs->clone();
+        r_temp = rhs->clone();
+        clone = new Times(l_temp, r_temp);
         return clone;
     }
     catch (const bad_alloc& e)
     {
+        delete l_temp;
+        delete r_temp;
+        delete clone;
         throw expression_tree_error("Clone failed");
     }
 }
 
 Expression_Tree* Divide::clone()
 {
+    Expression_Tree* l_temp;
+    Expression_Tree* r_temp;
+    Expression_Tree* clone;
     try
     {
-        Expression_Tree* clone = new Divide(lhs->clone(), rhs->clone());
+        l_temp = lhs->clone();
+        r_temp = rhs->clone();
+        clone = new Divide(l_temp, r_temp);
         return clone;
     }
     catch (const bad_alloc& e)
     {
+        delete l_temp;
+        delete r_temp;
+        delete clone;
         throw expression_tree_error("Clone failed");
     }
 }
 
 Expression_Tree* Power::clone()
 {
+    Expression_Tree* l_temp;
+    Expression_Tree* r_temp;
+    Expression_Tree* clone;
     try
     {
-        Expression_Tree* clone = new Power(lhs->clone(), rhs->clone());
+        l_temp = lhs->clone();
+        r_temp = rhs->clone();
+        clone = new Power(l_temp, r_temp);
         return clone;
     }
     catch (const bad_alloc& e)
     {
+        delete l_temp;
+        delete r_temp;
+        delete clone;
         throw expression_tree_error("Clone failed");
     }
 }
 
 Expression_Tree* Integer::clone()
 {
+    Expression_Tree* clone;
     try
     {
-        Expression_Tree* clone = new Integer(i);
+        clone = new Integer(i);
         return clone;
     }
     catch (const bad_alloc& e)
     {
+        delete clone;
         throw expression_tree_error("Clone failed");
     }
 }
 
 Expression_Tree* Real::clone()
 {
+    Expression_Tree* clone;
     try
     {
-        Expression_Tree* clone = new Real(d);
+        clone = new Real(d);
         return clone;
     }
     catch (const bad_alloc& e)
     {
+        delete clone;
         throw expression_tree_error("Clone failed");
     }
 }
 
 Expression_Tree* Variable::clone()
 {
+    Expression_Tree* clone;
     try
     {
-        Expression_Tree* clone = new Variable(var, var_table);
+        clone = new Variable(var, var_table);
         return clone;
     }
     catch (const bad_alloc& e)
     {
+        delete clone;
         throw expression_tree_error("Clone failed");
     }
 }

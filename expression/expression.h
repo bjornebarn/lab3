@@ -30,6 +30,7 @@ class Expression
         Expression(const Expression&);
         ~Expression();
 
+        Expression operator=(const Expression&);
         double      evaluate() const;
         std::string get_postfix() const;
         std::string get_infix() const;

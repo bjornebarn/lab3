@@ -50,11 +50,19 @@ Expression::Expression(const Expression& Temp_Tree)
 
 Expression::~Expression() { delete Exp_Tree; }
 
+Expression Expression::operator=(const Expression& Temp_Exp)
+{
+    Expression Exp = Expression(Temp_Exp);
+    return Exp;
+}
+
 /*
  * evaluate()
  */
 double Expression::evaluate() const
 {
+    if (empty())
+        return 0;
     return Exp_Tree->evaluate();
 }
 
@@ -63,6 +71,8 @@ double Expression::evaluate() const
  */
 std::string Expression::get_postfix() const
 {
+    if (empty())
+        return "Tree is empty";
     return Exp_Tree->get_postfix();
 }
 
@@ -71,6 +81,8 @@ std::string Expression::get_postfix() const
  */
 std::string Expression::get_infix() const
 {
+    if (empty())
+        return "Tree is empty";
     return Exp_Tree->get_infix();
 }
 
@@ -90,7 +102,8 @@ bool Expression::empty() const
  */
 void Expression::print_tree(std::ostream& os) const
 {
-    Exp_Tree->print(os);
+    if (not empty())     
+        Exp_Tree->print(os);
 }
 
 /*
@@ -111,6 +124,8 @@ void Expression::swap(Expression& exp)
  */
 void swap(Expression& exp1, Expression& exp2)
 {
+    if (exp1.empty())
+        exp1 = 0;
     exp1.swap(exp2);
 }
 

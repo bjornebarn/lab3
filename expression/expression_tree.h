@@ -74,11 +74,11 @@ class Assign : public Binary_Operator
     private:
         Variable_Table* var_table;
     public:
-       Assign(Expression_Tree*, Expression_Tree*, Variable_Table*);
-       ~Assign();
-       double           evaluate();
-       std::string      str() const;
-       Expression_Tree* clone();
+        Assign(Expression_Tree*, Expression_Tree*, Variable_Table*);
+        ~Assign();
+        double           evaluate();
+        std::string      str() const;
+        Expression_Tree* clone();
 };
 
 class Plus : public Binary_Operator
