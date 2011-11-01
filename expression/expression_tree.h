@@ -29,6 +29,7 @@ public:
    virtual std::string      str() const = 0;
    virtual void             print(std::ostream&, std::string = "") const = 0;
    virtual Expression_Tree* clone() const = 0;
+   virtual ~Expression_Tree(){}
 };
 
 /*
@@ -75,7 +76,6 @@ class Assign : public Binary_Operator
         Variable_Table* var_table;
     public:
         Assign(Expression_Tree*, Expression_Tree*, Variable_Table*);
-        ~Assign();
         double           evaluate() const;
         std::string      str() const;
         Expression_Tree* clone() const;
@@ -133,7 +133,6 @@ class Integer : public Operand
 
     public:
         Integer(int);
-        ~Integer();
         double           evaluate() const;
         std::string      str() const;
         void             print(std::ostream&, std::string = "") const;
@@ -147,7 +146,6 @@ class Real : public Operand
 
     public:
         Real(double);
-        ~Real();
         double           evaluate() const;
         std::string      str() const;
         void             print(std::ostream&, std::string = "") const;
@@ -162,7 +160,6 @@ class Variable : public Operand
 
     public:
         Variable(std::string, Variable_Table*);
-        ~Variable();
         double  evaluate() const;
         std::string      str() const;
         void    set_value(double);
