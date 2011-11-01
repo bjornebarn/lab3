@@ -55,29 +55,29 @@ Binary_Operator::~Binary_Operator()
     delete lhs; delete rhs;
 }
 
-double Assign::evaluate()
+double Assign::evaluate() const
 {
     double temp = rhs->evaluate();
     var_table->insert(lhs->str(), temp);
     return temp;
 }
 
-double Plus::evaluate()
+double Plus::evaluate() const
 {
     return lhs->evaluate() + rhs->evaluate();
 }
 
-double Minus::evaluate()
+double Minus::evaluate() const
 {
     return lhs->evaluate() - rhs->evaluate();
 }
 
-double Times::evaluate()
+double Times::evaluate() const
 {
         return lhs->evaluate() * rhs->evaluate();
     }
 
-double Divide::evaluate()
+double Divide::evaluate() const
 {
         double temp_num = rhs->evaluate();
         if (temp_num == 0)
@@ -85,7 +85,7 @@ double Divide::evaluate()
         return lhs->evaluate() / temp_num;
 }
 
-double Power::evaluate()
+double Power::evaluate() const
 {
         double l_temp = lhs->evaluate();
         double r_temp = rhs->evaluate();
@@ -94,17 +94,17 @@ double Power::evaluate()
     return pow(l_temp, r_temp);
 }
 
-double Integer::evaluate()
+double Integer::evaluate() const
 {
     return (double) i;
 }
 
-double Real::evaluate() 
+double Real::evaluate() const 
 {
     return d;
 }
 
-double Variable::evaluate()
+double Variable::evaluate() const
 {
     return var_table->get_value(var);
 }
@@ -192,7 +192,7 @@ string Binary_Operator::get_infix() const
 string Operand::get_infix() const { return str(); }
 
 
-void Binary_Operator::print(ostream& os, string indent)
+void Binary_Operator::print(ostream& os, string indent) const
 {
     rhs->print(os, indent + "  ");
     os << indent << " /\n";
@@ -201,21 +201,21 @@ void Binary_Operator::print(ostream& os, string indent)
     lhs->print(os, indent + "  ");
 }
 
-void Integer::print(ostream& os, string indent)
+void Integer::print(ostream& os, string indent) const
 {
     os << indent << i << "\n";
 }
 
-void Real::print(ostream& os, string indent)
+void Real::print(ostream& os, string indent) const
 {
     os << indent << d << "\n";
 }
 
-void Variable::print(ostream& os, string indent)
+void Variable::print(ostream& os, string indent) const
 {
     os << indent << var << "\n";
 }
-Expression_Tree* Assign::clone()
+Expression_Tree* Assign::clone() const
 {
     Expression_Tree* l_temp;
     Expression_Tree* r_temp;
@@ -236,7 +236,7 @@ Expression_Tree* Assign::clone()
     }
 }
 
-Expression_Tree* Plus::clone()
+Expression_Tree* Plus::clone() const
 {
     Expression_Tree* l_temp;
     Expression_Tree* r_temp;
@@ -257,7 +257,7 @@ Expression_Tree* Plus::clone()
     }
 }
 
-Expression_Tree* Minus::clone()
+Expression_Tree* Minus::clone() const
 {
     Expression_Tree* l_temp;
     Expression_Tree* r_temp;
@@ -278,7 +278,7 @@ Expression_Tree* Minus::clone()
     }
 }
 
-Expression_Tree* Times::clone()
+Expression_Tree* Times::clone() const
 {
     Expression_Tree* l_temp;
     Expression_Tree* r_temp;
@@ -299,7 +299,7 @@ Expression_Tree* Times::clone()
     }
 }
 
-Expression_Tree* Divide::clone()
+Expression_Tree* Divide::clone() const
 {
     Expression_Tree* l_temp;
     Expression_Tree* r_temp;
@@ -320,7 +320,7 @@ Expression_Tree* Divide::clone()
     }
 }
 
-Expression_Tree* Power::clone()
+Expression_Tree* Power::clone() const
 {
     Expression_Tree* l_temp;
     Expression_Tree* r_temp;
@@ -341,7 +341,7 @@ Expression_Tree* Power::clone()
     }
 }
 
-Expression_Tree* Integer::clone()
+Expression_Tree* Integer::clone() const
 {
     Expression_Tree* clone;
     try
@@ -356,7 +356,7 @@ Expression_Tree* Integer::clone()
     }
 }
 
-Expression_Tree* Real::clone()
+Expression_Tree* Real::clone() const
 {
     Expression_Tree* clone;
     try
@@ -371,7 +371,7 @@ Expression_Tree* Real::clone()
     }
 }
 
-Expression_Tree* Variable::clone()
+Expression_Tree* Variable::clone() const
 {
     Expression_Tree* clone;
     try

@@ -23,12 +23,12 @@ public:
    // Viktiga saker kvar att tänka på! Till exempel initiering, kopiering
    // och destruering! Det kan även tänkas att någon modifiering behövs.
 
-   virtual double           evaluate() = 0;
+   virtual double           evaluate() const = 0;
    virtual std::string      get_postfix() const = 0;
    virtual std::string      get_infix() const = 0;
    virtual std::string      str() const = 0;
-   virtual void             print(std::ostream&, std::string = "") = 0;
-   virtual Expression_Tree* clone() = 0;
+   virtual void             print(std::ostream&, std::string = "") const = 0;
+   virtual Expression_Tree* clone() const = 0;
 };
 
 /*
@@ -45,13 +45,13 @@ class Binary_Operator : public Expression_Tree
     protected:
         Expression_Tree* lhs;
         Expression_Tree* rhs;
+        Binary_Operator(Expression_Tree*,Expression_Tree*);
 
     public:
-        Binary_Operator(Expression_Tree*,Expression_Tree*);
         ~Binary_Operator();
         std::string      get_postfix() const;
         std::string      get_infix() const;
-        void             print(std::ostream&, std::string = "");
+        void             print(std::ostream&, std::string = "") const;
 };
 
 class Operand : public Expression_Tree
@@ -76,54 +76,54 @@ class Assign : public Binary_Operator
     public:
         Assign(Expression_Tree*, Expression_Tree*, Variable_Table*);
         ~Assign();
-        double           evaluate();
+        double           evaluate() const;
         std::string      str() const;
-        Expression_Tree* clone();
+        Expression_Tree* clone() const;
 };
 
 class Plus : public Binary_Operator
 {
     public:
         Plus(Expression_Tree*, Expression_Tree*);
-        double           evaluate();
+        double           evaluate() const;
         std::string      str() const;
-        Expression_Tree* clone();
+        Expression_Tree* clone() const;
 };
 
 class Minus : public Binary_Operator 
 {
     public:
         Minus(Expression_Tree*, Expression_Tree*);
-        double           evaluate();
+        double           evaluate() const;
         std::string      str() const;
-        Expression_Tree* clone();
+        Expression_Tree* clone() const;
 };
 
 class Times : public Binary_Operator
 {
     public:
         Times(Expression_Tree*, Expression_Tree*);
-        double           evaluate();
+        double           evaluate() const;
         std::string      str() const;
-        Expression_Tree* clone();
+        Expression_Tree* clone() const;
 };
 
 class Divide : public Binary_Operator
 {
     public:
         Divide(Expression_Tree*, Expression_Tree*);
-        double           evaluate();
+        double           evaluate() const;
         std::string      str() const;
-        Expression_Tree* clone();
+        Expression_Tree* clone() const;
 };
 
 class Power: public Binary_Operator
 {
     public:
         Power(Expression_Tree*, Expression_Tree*);
-        double           evaluate();
+        double           evaluate() const;
         std::string      str() const;
-        Expression_Tree* clone();
+        Expression_Tree* clone() const;
 };
 
 class Integer : public Operand
@@ -134,10 +134,10 @@ class Integer : public Operand
     public:
         Integer(int);
         ~Integer();
-        double           evaluate();
+        double           evaluate() const;
         std::string      str() const;
-        void             print(std::ostream&, std::string = "");
-        Expression_Tree* clone();
+        void             print(std::ostream&, std::string = "") const;
+        Expression_Tree* clone() const;
 };
 
 class Real : public Operand
@@ -148,10 +148,10 @@ class Real : public Operand
     public:
         Real(double);
         ~Real();
-        double           evaluate();
+        double           evaluate() const;
         std::string      str() const;
-        void             print(std::ostream&, std::string = "");
-        Expression_Tree* clone();
+        void             print(std::ostream&, std::string = "") const;
+        Expression_Tree* clone() const;
 };
 
 class Variable : public Operand
@@ -163,12 +163,12 @@ class Variable : public Operand
     public:
         Variable(std::string, Variable_Table*);
         ~Variable();
-        double  evaluate();
+        double  evaluate() const;
         std::string      str() const;
         void    set_value(double);
         double  get_value() const;
-        void             print(std::ostream&, std::string = "");
-        Expression_Tree* clone();
+        void             print(std::ostream&, std::string = "") const;
+        Expression_Tree* clone() const;
 };
 
 #endif

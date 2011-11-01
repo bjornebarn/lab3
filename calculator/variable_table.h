@@ -15,8 +15,8 @@ class Variable_Table
         void insert(const string, double);
         void remove(const string);
         void set_value(const string, double);
-        double get_value(const string);
-        void list(ostream&);
+        double get_value(string) const;
+        void list(ostream&) const;
         void clear();
         bool empty() const;
 };

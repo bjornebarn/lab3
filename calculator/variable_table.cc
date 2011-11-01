@@ -40,19 +40,19 @@ void Variable_Table::set_value(const string var, double value)
         var_table[var] = value;
 }
 
-double Variable_Table::get_value(const string var)
+double Variable_Table::get_value(string var) const
 {    
     if (not find(var))
         throw variable_table_error("Cannot get value of a var not in the table!");
     else
-        return var_table[var];
+        return var_table.find(var)->second;
     return 0;
 }
 
-void Variable_Table::list(ostream& os)
+void Variable_Table::list(ostream& os) const
 {
-    map<string, double>::iterator end = var_table.end();
-    for (map<string, double>::iterator it = var_table.begin(); it != end; ++it)
+    map<string, double>::const_iterator end = var_table.end();
+    for (map<string, double>::const_iterator it = var_table.begin(); it != end; ++it)
     {
         os << it->first << ": " << it->second << "\n";
     } 

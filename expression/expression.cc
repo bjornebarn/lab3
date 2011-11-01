@@ -52,8 +52,8 @@ Expression::~Expression() { delete Exp_Tree; }
 
 Expression Expression::operator=(const Expression& Temp_Exp)
 {
-    Expression Exp = Expression(Temp_Exp);
-    return Exp;
+    Exp_Tree = Temp_Exp.Exp_Tree->clone();
+    return *this;
 }
 
 /*
